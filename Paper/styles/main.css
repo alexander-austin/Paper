@@ -1,0 +1,2238 @@
+/*
+    Copyright (c) 2024, Alexander Austin
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+
+:root {
+    --app-color: rgba(0, 136, 147, 1.0);
+    --foreground-color: rgba(255, 255, 255, 1.0);
+    --foreground-placeholder-color: rgba(255, 255, 255, 0.5);
+    --background-gradient: linear-gradient(15deg, rgba(144, 14, 165, 1) 0.000%, rgba(145, 14, 164, 1) 0.392%, rgba(146, 14, 163, 1) 0.784%, rgba(148, 13, 162, 1) 1.176%, rgba(149, 13, 161, 1) 1.568%, rgba(150, 13, 160, 1) 1.960%, rgba(151, 13, 159, 1) 2.352%, rgba(153, 12, 158, 1) 2.745%, rgba(154, 12, 157, 1) 3.137%, rgba(155, 12, 156, 1) 3.529%, rgba(156, 12, 155, 1) 3.921%, rgba(158, 11, 154, 1) 4.313%, rgba(159, 11, 153, 1) 4.705%, rgba(160, 11, 152, 1) 5.098%, rgba(161, 10, 151, 1) 5.490%, rgba(163, 10, 150, 1) 5.882%, rgba(164, 9, 149, 1) 6.274%, rgba(165, 9, 148, 1) 6.666%, rgba(166, 9, 147, 1) 7.058%, rgba(168, 8, 146, 1) 7.450%, rgba(169, 8, 145, 1) 7.843%, rgba(170, 8, 143, 1) 8.235%, rgba(171, 7, 142, 1) 8.627%, rgba(172, 7, 141, 1) 9.019%, rgba(174, 7, 140, 1) 9.411%, rgba(175, 6, 138, 1) 9.803%, rgba(176, 6, 137, 1) 10.196%, rgba(177, 6, 136, 1) 10.588%, rgba(178, 6, 135, 1) 10.980%, rgba(179, 6, 133, 1) 11.372%, rgba(181, 6, 132, 1) 11.764%, rgba(182, 6, 131, 1) 12.156%, rgba(183, 6, 129, 1) 12.549%, rgba(184, 6, 128, 1) 12.941%, rgba(185, 6, 126, 1) 13.333%, rgba(186, 6, 125, 1) 13.725%, rgba(187, 6, 123, 1) 14.117%, rgba(188, 7, 122, 1) 14.509%, rgba(189, 7, 120, 1) 14.901%, rgba(190, 8, 119, 1) 15.294%, rgba(191, 8, 117, 1) 15.686%, rgba(192, 9, 116, 1) 16.078%, rgba(193, 10, 114, 1) 16.470%, rgba(194, 11, 113, 1) 16.862%, rgba(195, 12, 111, 1) 17.254%, rgba(196, 13, 110, 1) 17.647%, rgba(197, 14, 108, 1) 18.039%, rgba(198, 15, 106, 1) 18.431%, rgba(199, 16, 105, 1) 18.823%, rgba(200, 18, 103, 1) 19.215%, rgba(201, 19, 102, 1) 19.607%, rgba(202, 20, 100, 1) 20.000%, rgba(202, 21, 98, 1) 20.392%, rgba(203, 23, 97, 1) 20.784%, rgba(204, 24, 95, 1) 21.176%, rgba(205, 25, 93, 1) 21.568%, rgba(205, 27, 92, 1) 21.960%, rgba(206, 28, 90, 1) 22.352%, rgba(207, 30, 89, 1) 22.745%, rgba(207, 31, 87, 1) 23.137%, rgba(208, 32, 85, 1) 23.529%, rgba(209, 34, 84, 1) 23.921%, rgba(209, 35, 82, 1) 24.313%, rgba(210, 37, 81, 1) 24.705%, rgba(210, 38, 79, 1) 25.098%, rgba(211, 40, 78, 1) 25.490%, rgba(211, 41, 76, 1) 25.882%, rgba(212, 43, 74, 1) 26.274%, rgba(212, 44, 73, 1) 26.666%, rgba(213, 46, 71, 1) 27.058%, rgba(213, 47, 70, 1) 27.450%, rgba(214, 49, 69, 1) 27.843%, rgba(214, 50, 67, 1) 28.235%, rgba(214, 52, 66, 1) 28.627%, rgba(215, 53, 64, 1) 29.019%, rgba(215, 55, 63, 1) 29.411%, rgba(215, 56, 61, 1) 29.803%, rgba(215, 58, 60, 1) 30.196%, rgba(216, 59, 59, 1) 30.588%, rgba(216, 61, 57, 1) 30.980%, rgba(216, 62, 56, 1) 31.372%, rgba(216, 64, 55, 1) 31.764%, rgba(216, 65, 53, 1) 32.156%, rgba(217, 67, 52, 1) 32.549%, rgba(217, 68, 51, 1) 32.941%, rgba(217, 70, 50, 1) 33.333%, rgba(217, 71, 48, 1) 33.725%, rgba(217, 73, 47, 1) 34.117%, rgba(217, 74, 46, 1) 34.509%, rgba(217, 76, 45, 1) 34.901%, rgba(217, 77, 43, 1) 35.294%, rgba(217, 78, 42, 1) 35.686%, rgba(217, 80, 41, 1) 36.078%, rgba(217, 81, 40, 1) 36.470%, rgba(217, 83, 39, 1) 36.862%, rgba(217, 84, 38, 1) 37.254%, rgba(217, 86, 36, 1) 37.647%, rgba(217, 87, 35, 1) 38.039%, rgba(217, 88, 34, 1) 38.431%, rgba(217, 90, 33, 1) 38.823%, rgba(217, 91, 32, 1) 39.215%, rgba(216, 93, 31, 1) 39.607%, rgba(216, 94, 30, 1) 40.000%, rgba(216, 96, 28, 1) 40.392%, rgba(216, 97, 27, 1) 40.784%, rgba(216, 98, 26, 1) 41.176%, rgba(215, 100, 25, 1) 41.568%, rgba(215, 101, 24, 1) 41.960%, rgba(215, 102, 23, 1) 42.352%, rgba(215, 104, 22, 1) 42.745%, rgba(214, 105, 20, 1) 43.137%, rgba(214, 107, 19, 1) 43.529%, rgba(214, 108, 18, 1) 43.921%, rgba(214, 109, 17, 1) 44.313%, rgba(213, 111, 16, 1) 44.705%, rgba(213, 112, 15, 1) 45.098%, rgba(212, 113, 14, 1) 45.490%, rgba(212, 115, 12, 1) 45.882%, rgba(212, 116, 11, 1) 46.274%, rgba(211, 118, 10, 1) 46.666%, rgba(211, 119, 9, 1) 47.058%, rgba(210, 120, 8, 1) 47.450%, rgba(210, 122, 7, 1) 47.843%, rgba(209, 123, 6, 1) 48.235%, rgba(209, 124, 5, 1) 48.627%, rgba(208, 126, 5, 1) 49.019%, rgba(208, 127, 4, 1) 49.411%, rgba(207, 128, 4, 1) 49.803%, rgba(207, 130, 3, 1) 50.196%, rgba(206, 131, 3, 1) 50.588%, rgba(206, 132, 3, 1) 50.980%, rgba(205, 134, 3, 1) 51.372%, rgba(204, 135, 2, 1) 51.764%, rgba(204, 136, 3, 1) 52.156%, rgba(203, 138, 3, 1) 52.549%, rgba(202, 139, 3, 1) 52.941%, rgba(202, 140, 3, 1) 53.333%, rgba(201, 141, 4, 1) 53.725%, rgba(200, 143, 4, 1) 54.117%, rgba(199, 144, 5, 1) 54.509%, rgba(199, 145, 6, 1) 54.901%, rgba(198, 147, 7, 1) 55.294%, rgba(197, 148, 8, 1) 55.686%, rgba(196, 149, 9, 1) 56.078%, rgba(195, 151, 11, 1) 56.470%, rgba(194, 152, 12, 1) 56.862%, rgba(194, 153, 13, 1) 57.254%, rgba(193, 154, 15, 1) 57.647%, rgba(192, 156, 16, 1) 58.039%, rgba(191, 157, 18, 1) 58.431%, rgba(190, 158, 19, 1) 58.823%, rgba(189, 160, 21, 1) 59.215%, rgba(188, 161, 22, 1) 59.607%, rgba(187, 162, 24, 1) 60.000%, rgba(186, 163, 25, 1) 60.392%, rgba(184, 165, 27, 1) 60.784%, rgba(183, 166, 28, 1) 61.176%, rgba(182, 167, 30, 1) 61.568%, rgba(181, 168, 32, 1) 61.960%, rgba(180, 170, 33, 1) 62.352%, rgba(179, 171, 35, 1) 62.745%, rgba(177, 172, 37, 1) 63.137%, rgba(176, 173, 38, 1) 63.529%, rgba(175, 175, 40, 1) 63.921%, rgba(173, 176, 41, 1) 64.313%, rgba(172, 177, 43, 1) 64.705%, rgba(171, 178, 45, 1) 65.098%, rgba(169, 180, 47, 1) 65.490%, rgba(168, 181, 48, 1) 65.882%, rgba(166, 182, 50, 1) 66.274%, rgba(165, 183, 52, 1) 66.666%, rgba(163, 185, 54, 1) 67.058%, rgba(162, 186, 55, 1) 67.450%, rgba(160, 187, 57, 1) 67.843%, rgba(159, 188, 59, 1) 68.235%, rgba(157, 189, 61, 1) 68.627%, rgba(155, 191, 63, 1) 69.019%, rgba(154, 192, 65, 1) 69.411%, rgba(152, 193, 67, 1) 69.803%, rgba(150, 194, 69, 1) 70.196%, rgba(148, 195, 71, 1) 70.588%, rgba(146, 196, 73, 1) 70.980%, rgba(145, 198, 75, 1) 71.372%, rgba(143, 199, 77, 1) 71.764%, rgba(141, 200, 79, 1) 72.156%, rgba(139, 201, 81, 1) 72.549%, rgba(137, 202, 83, 1) 72.941%, rgba(135, 203, 85, 1) 73.333%, rgba(132, 204, 87, 1) 73.725%, rgba(130, 206, 89, 1) 74.117%, rgba(128, 207, 92, 1) 74.509%, rgba(126, 208, 94, 1) 74.901%, rgba(124, 209, 96, 1) 75.294%, rgba(121, 210, 98, 1) 75.686%, rgba(119, 211, 101, 1) 76.078%, rgba(117, 212, 103, 1) 76.470%, rgba(114, 213, 105, 1) 76.862%, rgba(112, 214, 108, 1) 77.254%, rgba(109, 215, 110, 1) 77.647%, rgba(107, 216, 112, 1) 78.039%, rgba(104, 217, 115, 1) 78.431%, rgba(102, 218, 117, 1) 78.823%, rgba(99, 219, 120, 1) 79.215%, rgba(97, 220, 122, 1) 79.607%, rgba(94, 221, 125, 1) 80.000%, rgba(91, 222, 127, 1) 80.392%, rgba(89, 223, 130, 1) 80.784%, rgba(86, 224, 132, 1) 81.176%, rgba(83, 224, 135, 1) 81.568%, rgba(81, 225, 137, 1) 81.960%, rgba(78, 226, 140, 1) 82.352%, rgba(75, 227, 143, 1) 82.745%, rgba(73, 228, 145, 1) 83.137%, rgba(70, 229, 148, 1) 83.529%, rgba(67, 229, 150, 1) 83.921%, rgba(65, 230, 153, 1) 84.313%, rgba(62, 231, 156, 1) 84.705%, rgba(60, 232, 158, 1) 85.098%, rgba(57, 232, 161, 1) 85.490%, rgba(55, 233, 163, 1) 85.882%, rgba(52, 234, 166, 1) 86.274%, rgba(50, 234, 169, 1) 86.666%, rgba(48, 235, 171, 1) 87.058%, rgba(46, 236, 174, 1) 87.450%, rgba(44, 236, 176, 1) 87.843%, rgba(42, 237, 179, 1) 88.235%, rgba(41, 238, 182, 1) 88.627%, rgba(39, 238, 184, 1) 89.019%, rgba(38, 239, 187, 1) 89.411%, rgba(37, 239, 189, 1) 89.803%, rgba(36, 240, 192, 1) 90.196%, rgba(36, 241, 194, 1) 90.588%, rgba(36, 241, 197, 1) 90.980%, rgba(36, 242, 199, 1) 91.372%, rgba(36, 242, 202, 1) 91.764%, rgba(36, 243, 204, 1) 92.156%, rgba(37, 243, 207, 1) 92.549%, rgba(38, 244, 209, 1) 92.941%, rgba(39, 244, 212, 1) 93.333%, rgba(40, 245, 214, 1) 93.725%, rgba(42, 245, 216, 1) 94.117%, rgba(43, 246, 219, 1) 94.509%, rgba(45, 246, 221, 1) 94.901%, rgba(46, 246, 224, 1) 95.294%, rgba(48, 247, 226, 1) 95.686%, rgba(50, 247, 228, 1) 96.078%, rgba(52, 248, 231, 1) 96.470%, rgba(53, 248, 233, 1) 96.862%, rgba(55, 249, 236, 1) 97.254%, rgba(57, 249, 238, 1) 97.647%, rgba(59, 250, 240, 1) 98.039%, rgba(61, 250, 243, 1) 98.431%, rgba(63, 250, 245, 1) 98.823%, rgba(64, 251, 247, 1) 99.215%, rgba(66, 251, 250, 1) 99.607%, rgba(68, 252, 252, 1) 100.000%) no-repeat fixed;
+    --element-background: rgba(0, 0, 0, 0.4);
+    --element-disabled-opacity: 0.4;
+    --element-shadow-color: rgba(0, 0, 0, 0.75);
+    --element-error-color: rgba(127, 0, 0, 1.0);
+}
+
+body {
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--foreground-color);
+    font-family: 'Open Sans', 'Noto Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.0rem;
+    line-height: 1.7rem;
+    vertical-align: middle;
+    text-align: center;
+    background: var(--background-gradient);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.text {
+    color: var(--foreground-color);
+    font-family: 'Open Sans', 'Noto Sans', sans-serif;
+    font-weight: 100;
+    font-size: 1.0rem;
+    line-height: 1.7rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.text-small {
+    color: var(--foreground-color);
+    font-family: 'Open Sans', 'Noto Sans', sans-serif;
+    font-weight: 100;
+    font-size: 0.75rem;
+    line-height: 1.2rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.text-large {
+    color: var(--foreground-color);
+    font-family: 'Open Sans', 'Noto Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.text-larger {
+    display: block;
+    margin-bottom: 1.0rem;
+    color: var(--foreground-color);
+    font-family: 'Open Sans', 'Noto Sans', sans-serif;
+    font-weight: 600;
+    font-size: 2.0rem;
+    line-height: 2.7rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.text-bold {
+    font-weight: 900;
+}
+.text-upper {
+    text-transform: uppercase;
+}
+
+.pointer {
+    cursor: pointer;
+}
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.hidden {
+    display: none !important;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0.0;
+    background-color: var(--element-background);
+    backdrop-filter: blur(0.25rem);
+    transition: 0.5s ease-in-out opacity;
+    overflow: hidden;
+    z-index: 10000;
+}
+#loader.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1.0;
+}
+#loader-spinner {
+    border: 0.25rem solid var(--foreground-color);
+    width: 3.0rem;
+    height: 3.0rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    animation: loader-spinner-rotation 2s linear infinite, loader-spinner-colors 4s linear infinite;
+}
+#loader-spinner::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1.5rem solid;
+    border-color: transparent var(--foreground-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+@keyframes loader-spinner-rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes loader-spinner-colors {
+    0.000000% {
+        background-color: rgba(144, 14, 165, 1.0);
+    }
+    0.196078% {
+        background-color: rgba(145, 14, 164, 1.0);
+    }
+    0.392157% {
+        background-color: rgba(146, 14, 163, 1.0);
+    }
+    0.588235% {
+        background-color: rgba(148, 13, 162, 1.0);
+    }
+    0.784314% {
+        background-color: rgba(149, 13, 161, 1.0);
+    }
+    0.980392% {
+        background-color: rgba(150, 13, 160, 1.0);
+    }
+    1.176471% {
+        background-color: rgba(151, 13, 159, 1.0);
+    }
+    1.372549% {
+        background-color: rgba(153, 12, 158, 1.0);
+    }
+    1.568627% {
+        background-color: rgba(154, 12, 157, 1.0);
+    }
+    1.764706% {
+        background-color: rgba(155, 12, 156, 1.0);
+    }
+    1.960784% {
+        background-color: rgba(156, 12, 155, 1.0);
+    }
+    2.156863% {
+        background-color: rgba(158, 11, 154, 1.0);
+    }
+    2.352941% {
+        background-color: rgba(159, 11, 153, 1.0);
+    }
+    2.549020% {
+        background-color: rgba(160, 11, 152, 1.0);
+    }
+    2.745098% {
+        background-color: rgba(161, 10, 151, 1.0);
+    }
+    2.941176% {
+        background-color: rgba(163, 10, 150, 1.0);
+    }
+    3.137255% {
+        background-color: rgba(164, 9, 149, 1.0);
+    }
+    3.333333% {
+        background-color: rgba(165, 9, 148, 1.0);
+    }
+    3.529412% {
+        background-color: rgba(166, 9, 147, 1.0);
+    }
+    3.725490% {
+        background-color: rgba(168, 8, 146, 1.0);
+    }
+    3.921569% {
+        background-color: rgba(169, 8, 145, 1.0);
+    }
+    4.117647% {
+        background-color: rgba(170, 8, 143, 1.0);
+    }
+    4.313725% {
+        background-color: rgba(171, 7, 142, 1.0);
+    }
+    4.509804% {
+        background-color: rgba(172, 7, 141, 1.0);
+    }
+    4.705882% {
+        background-color: rgba(174, 7, 140, 1.0);
+    }
+    4.901961% {
+        background-color: rgba(175, 6, 138, 1.0);
+    }
+    5.098039% {
+        background-color: rgba(176, 6, 137, 1.0);
+    }
+    5.294118% {
+        background-color: rgba(177, 6, 136, 1.0);
+    }
+    5.490196% {
+        background-color: rgba(178, 6, 135, 1.0);
+    }
+    5.686275% {
+        background-color: rgba(179, 6, 133, 1.0);
+    }
+    5.882353% {
+        background-color: rgba(181, 6, 132, 1.0);
+    }
+    6.078431% {
+        background-color: rgba(182, 6, 131, 1.0);
+    }
+    6.274510% {
+        background-color: rgba(183, 6, 129, 1.0);
+    }
+    6.470588% {
+        background-color: rgba(184, 6, 128, 1.0);
+    }
+    6.666667% {
+        background-color: rgba(185, 6, 126, 1.0);
+    }
+    6.862745% {
+        background-color: rgba(186, 6, 125, 1.0);
+    }
+    7.058824% {
+        background-color: rgba(187, 6, 123, 1.0);
+    }
+    7.254902% {
+        background-color: rgba(188, 7, 122, 1.0);
+    }
+    7.450980% {
+        background-color: rgba(189, 7, 120, 1.0);
+    }
+    7.647059% {
+        background-color: rgba(190, 8, 119, 1.0);
+    }
+    7.843137% {
+        background-color: rgba(191, 8, 117, 1.0);
+    }
+    8.039216% {
+        background-color: rgba(192, 9, 116, 1.0);
+    }
+    8.235294% {
+        background-color: rgba(193, 10, 114, 1.0);
+    }
+    8.431373% {
+        background-color: rgba(194, 11, 113, 1.0);
+    }
+    8.627451% {
+        background-color: rgba(195, 12, 111, 1.0);
+    }
+    8.823529% {
+        background-color: rgba(196, 13, 110, 1.0);
+    }
+    9.019608% {
+        background-color: rgba(197, 14, 108, 1.0);
+    }
+    9.215686% {
+        background-color: rgba(198, 15, 106, 1.0);
+    }
+    9.411765% {
+        background-color: rgba(199, 16, 105, 1.0);
+    }
+    9.607843% {
+        background-color: rgba(200, 18, 103, 1.0);
+    }
+    9.803922% {
+        background-color: rgba(201, 19, 102, 1.0);
+    }
+    10.000000% {
+        background-color: rgba(202, 20, 100, 1.0);
+    }
+    10.196078% {
+        background-color: rgba(202, 21, 98, 1.0);
+    }
+    10.392157% {
+        background-color: rgba(203, 23, 97, 1.0);
+    }
+    10.588235% {
+        background-color: rgba(204, 24, 95, 1.0);
+    }
+    10.784314% {
+        background-color: rgba(205, 25, 93, 1.0);
+    }
+    10.980392% {
+        background-color: rgba(205, 27, 92, 1.0);
+    }
+    11.176471% {
+        background-color: rgba(206, 28, 90, 1.0);
+    }
+    11.372549% {
+        background-color: rgba(207, 30, 89, 1.0);
+    }
+    11.568627% {
+        background-color: rgba(207, 31, 87, 1.0);
+    }
+    11.764706% {
+        background-color: rgba(208, 32, 85, 1.0);
+    }
+    11.960784% {
+        background-color: rgba(209, 34, 84, 1.0);
+    }
+    12.156863% {
+        background-color: rgba(209, 35, 82, 1.0);
+    }
+    12.352941% {
+        background-color: rgba(210, 37, 81, 1.0);
+    }
+    12.549020% {
+        background-color: rgba(210, 38, 79, 1.0);
+    }
+    12.745098% {
+        background-color: rgba(211, 40, 78, 1.0);
+    }
+    12.941176% {
+        background-color: rgba(211, 41, 76, 1.0);
+    }
+    13.137255% {
+        background-color: rgba(212, 43, 74, 1.0);
+    }
+    13.333333% {
+        background-color: rgba(212, 44, 73, 1.0);
+    }
+    13.529412% {
+        background-color: rgba(213, 46, 71, 1.0);
+    }
+    13.725490% {
+        background-color: rgba(213, 47, 70, 1.0);
+    }
+    13.921569% {
+        background-color: rgba(214, 49, 69, 1.0);
+    }
+    14.117647% {
+        background-color: rgba(214, 50, 67, 1.0);
+    }
+    14.313725% {
+        background-color: rgba(214, 52, 66, 1.0);
+    }
+    14.509804% {
+        background-color: rgba(215, 53, 64, 1.0);
+    }
+    14.705882% {
+        background-color: rgba(215, 55, 63, 1.0);
+    }
+    14.901961% {
+        background-color: rgba(215, 56, 61, 1.0);
+    }
+    15.098039% {
+        background-color: rgba(215, 58, 60, 1.0);
+    }
+    15.294118% {
+        background-color: rgba(216, 59, 59, 1.0);
+    }
+    15.490196% {
+        background-color: rgba(216, 61, 57, 1.0);
+    }
+    15.686275% {
+        background-color: rgba(216, 62, 56, 1.0);
+    }
+    15.882353% {
+        background-color: rgba(216, 64, 55, 1.0);
+    }
+    16.078431% {
+        background-color: rgba(216, 65, 53, 1.0);
+    }
+    16.274510% {
+        background-color: rgba(217, 67, 52, 1.0);
+    }
+    16.470588% {
+        background-color: rgba(217, 68, 51, 1.0);
+    }
+    16.666667% {
+        background-color: rgba(217, 70, 50, 1.0);
+    }
+    16.862745% {
+        background-color: rgba(217, 71, 48, 1.0);
+    }
+    17.058824% {
+        background-color: rgba(217, 73, 47, 1.0);
+    }
+    17.254902% {
+        background-color: rgba(217, 74, 46, 1.0);
+    }
+    17.450980% {
+        background-color: rgba(217, 76, 45, 1.0);
+    }
+    17.647059% {
+        background-color: rgba(217, 77, 43, 1.0);
+    }
+    17.843137% {
+        background-color: rgba(217, 78, 42, 1.0);
+    }
+    18.039216% {
+        background-color: rgba(217, 80, 41, 1.0);
+    }
+    18.235294% {
+        background-color: rgba(217, 81, 40, 1.0);
+    }
+    18.431373% {
+        background-color: rgba(217, 83, 39, 1.0);
+    }
+    18.627451% {
+        background-color: rgba(217, 84, 38, 1.0);
+    }
+    18.823529% {
+        background-color: rgba(217, 86, 36, 1.0);
+    }
+    19.019608% {
+        background-color: rgba(217, 87, 35, 1.0);
+    }
+    19.215686% {
+        background-color: rgba(217, 88, 34, 1.0);
+    }
+    19.411765% {
+        background-color: rgba(217, 90, 33, 1.0);
+    }
+    19.607843% {
+        background-color: rgba(217, 91, 32, 1.0);
+    }
+    19.803922% {
+        background-color: rgba(216, 93, 31, 1.0);
+    }
+    20.000000% {
+        background-color: rgba(216, 94, 30, 1.0);
+    }
+    20.196078% {
+        background-color: rgba(216, 96, 28, 1.0);
+    }
+    20.392157% {
+        background-color: rgba(216, 97, 27, 1.0);
+    }
+    20.588235% {
+        background-color: rgba(216, 98, 26, 1.0);
+    }
+    20.784314% {
+        background-color: rgba(215, 100, 25, 1.0);
+    }
+    20.980392% {
+        background-color: rgba(215, 101, 24, 1.0);
+    }
+    21.176471% {
+        background-color: rgba(215, 102, 23, 1.0);
+    }
+    21.372549% {
+        background-color: rgba(215, 104, 22, 1.0);
+    }
+    21.568627% {
+        background-color: rgba(214, 105, 20, 1.0);
+    }
+    21.764706% {
+        background-color: rgba(214, 107, 19, 1.0);
+    }
+    21.960784% {
+        background-color: rgba(214, 108, 18, 1.0);
+    }
+    22.156863% {
+        background-color: rgba(214, 109, 17, 1.0);
+    }
+    22.352941% {
+        background-color: rgba(213, 111, 16, 1.0);
+    }
+    22.549020% {
+        background-color: rgba(213, 112, 15, 1.0);
+    }
+    22.745098% {
+        background-color: rgba(212, 113, 14, 1.0);
+    }
+    22.941176% {
+        background-color: rgba(212, 115, 12, 1.0);
+    }
+    23.137255% {
+        background-color: rgba(212, 116, 11, 1.0);
+    }
+    23.333333% {
+        background-color: rgba(211, 118, 10, 1.0);
+    }
+    23.529412% {
+        background-color: rgba(211, 119, 9, 1.0);
+    }
+    23.725490% {
+        background-color: rgba(210, 120, 8, 1.0);
+    }
+    23.921569% {
+        background-color: rgba(210, 122, 7, 1.0);
+    }
+    24.117647% {
+        background-color: rgba(209, 123, 6, 1.0);
+    }
+    24.313725% {
+        background-color: rgba(209, 124, 5, 1.0);
+    }
+    24.509804% {
+        background-color: rgba(208, 126, 5, 1.0);
+    }
+    24.705882% {
+        background-color: rgba(208, 127, 4, 1.0);
+    }
+    24.901961% {
+        background-color: rgba(207, 128, 4, 1.0);
+    }
+    25.098039% {
+        background-color: rgba(207, 130, 3, 1.0);
+    }
+    25.294118% {
+        background-color: rgba(206, 131, 3, 1.0);
+    }
+    25.490196% {
+        background-color: rgba(206, 132, 3, 1.0);
+    }
+    25.686275% {
+        background-color: rgba(205, 134, 3, 1.0);
+    }
+    25.882353% {
+        background-color: rgba(204, 135, 2, 1.0);
+    }
+    26.078431% {
+        background-color: rgba(204, 136, 3, 1.0);
+    }
+    26.274510% {
+        background-color: rgba(203, 138, 3, 1.0);
+    }
+    26.470588% {
+        background-color: rgba(202, 139, 3, 1.0);
+    }
+    26.666667% {
+        background-color: rgba(202, 140, 3, 1.0);
+    }
+    26.862745% {
+        background-color: rgba(201, 141, 4, 1.0);
+    }
+    27.058824% {
+        background-color: rgba(200, 143, 4, 1.0);
+    }
+    27.254902% {
+        background-color: rgba(199, 144, 5, 1.0);
+    }
+    27.450980% {
+        background-color: rgba(199, 145, 6, 1.0);
+    }
+    27.647059% {
+        background-color: rgba(198, 147, 7, 1.0);
+    }
+    27.843137% {
+        background-color: rgba(197, 148, 8, 1.0);
+    }
+    28.039216% {
+        background-color: rgba(196, 149, 9, 1.0);
+    }
+    28.235294% {
+        background-color: rgba(195, 151, 11, 1.0);
+    }
+    28.431373% {
+        background-color: rgba(194, 152, 12, 1.0);
+    }
+    28.627451% {
+        background-color: rgba(194, 153, 13, 1.0);
+    }
+    28.823529% {
+        background-color: rgba(193, 154, 15, 1.0);
+    }
+    29.019608% {
+        background-color: rgba(192, 156, 16, 1.0);
+    }
+    29.215686% {
+        background-color: rgba(191, 157, 18, 1.0);
+    }
+    29.411765% {
+        background-color: rgba(190, 158, 19, 1.0);
+    }
+    29.607843% {
+        background-color: rgba(189, 160, 21, 1.0);
+    }
+    29.803922% {
+        background-color: rgba(188, 161, 22, 1.0);
+    }
+    30.000000% {
+        background-color: rgba(187, 162, 24, 1.0);
+    }
+    30.196078% {
+        background-color: rgba(186, 163, 25, 1.0);
+    }
+    30.392157% {
+        background-color: rgba(184, 165, 27, 1.0);
+    }
+    30.588235% {
+        background-color: rgba(183, 166, 28, 1.0);
+    }
+    30.784314% {
+        background-color: rgba(182, 167, 30, 1.0);
+    }
+    30.980392% {
+        background-color: rgba(181, 168, 32, 1.0);
+    }
+    31.176471% {
+        background-color: rgba(180, 170, 33, 1.0);
+    }
+    31.372549% {
+        background-color: rgba(179, 171, 35, 1.0);
+    }
+    31.568627% {
+        background-color: rgba(177, 172, 37, 1.0);
+    }
+    31.764706% {
+        background-color: rgba(176, 173, 38, 1.0);
+    }
+    31.960784% {
+        background-color: rgba(175, 175, 40, 1.0);
+    }
+    32.156863% {
+        background-color: rgba(173, 176, 41, 1.0);
+    }
+    32.352941% {
+        background-color: rgba(172, 177, 43, 1.0);
+    }
+    32.549020% {
+        background-color: rgba(171, 178, 45, 1.0);
+    }
+    32.745098% {
+        background-color: rgba(169, 180, 47, 1.0);
+    }
+    32.941176% {
+        background-color: rgba(168, 181, 48, 1.0);
+    }
+    33.137255% {
+        background-color: rgba(166, 182, 50, 1.0);
+    }
+    33.333333% {
+        background-color: rgba(165, 183, 52, 1.0);
+    }
+    33.529412% {
+        background-color: rgba(163, 185, 54, 1.0);
+    }
+    33.725490% {
+        background-color: rgba(162, 186, 55, 1.0);
+    }
+    33.921569% {
+        background-color: rgba(160, 187, 57, 1.0);
+    }
+    34.117647% {
+        background-color: rgba(159, 188, 59, 1.0);
+    }
+    34.313725% {
+        background-color: rgba(157, 189, 61, 1.0);
+    }
+    34.509804% {
+        background-color: rgba(155, 191, 63, 1.0);
+    }
+    34.705882% {
+        background-color: rgba(154, 192, 65, 1.0);
+    }
+    34.901961% {
+        background-color: rgba(152, 193, 67, 1.0);
+    }
+    35.098039% {
+        background-color: rgba(150, 194, 69, 1.0);
+    }
+    35.294118% {
+        background-color: rgba(148, 195, 71, 1.0);
+    }
+    35.490196% {
+        background-color: rgba(146, 196, 73, 1.0);
+    }
+    35.686275% {
+        background-color: rgba(145, 198, 75, 1.0);
+    }
+    35.882353% {
+        background-color: rgba(143, 199, 77, 1.0);
+    }
+    36.078431% {
+        background-color: rgba(141, 200, 79, 1.0);
+    }
+    36.274510% {
+        background-color: rgba(139, 201, 81, 1.0);
+    }
+    36.470588% {
+        background-color: rgba(137, 202, 83, 1.0);
+    }
+    36.666667% {
+        background-color: rgba(135, 203, 85, 1.0);
+    }
+    36.862745% {
+        background-color: rgba(132, 204, 87, 1.0);
+    }
+    37.058824% {
+        background-color: rgba(130, 206, 89, 1.0);
+    }
+    37.254902% {
+        background-color: rgba(128, 207, 92, 1.0);
+    }
+    37.450980% {
+        background-color: rgba(126, 208, 94, 1.0);
+    }
+    37.647059% {
+        background-color: rgba(124, 209, 96, 1.0);
+    }
+    37.843137% {
+        background-color: rgba(121, 210, 98, 1.0);
+    }
+    38.039216% {
+        background-color: rgba(119, 211, 101, 1.0);
+    }
+    38.235294% {
+        background-color: rgba(117, 212, 103, 1.0);
+    }
+    38.431373% {
+        background-color: rgba(114, 213, 105, 1.0);
+    }
+    38.627451% {
+        background-color: rgba(112, 214, 108, 1.0);
+    }
+    38.823529% {
+        background-color: rgba(109, 215, 110, 1.0);
+    }
+    39.019608% {
+        background-color: rgba(107, 216, 112, 1.0);
+    }
+    39.215686% {
+        background-color: rgba(104, 217, 115, 1.0);
+    }
+    39.411765% {
+        background-color: rgba(102, 218, 117, 1.0);
+    }
+    39.607843% {
+        background-color: rgba(99, 219, 120, 1.0);
+    }
+    39.803922% {
+        background-color: rgba(97, 220, 122, 1.0);
+    }
+    40.000000% {
+        background-color: rgba(94, 221, 125, 1.0);
+    }
+    40.196078% {
+        background-color: rgba(91, 222, 127, 1.0);
+    }
+    40.392157% {
+        background-color: rgba(89, 223, 130, 1.0);
+    }
+    40.588235% {
+        background-color: rgba(86, 224, 132, 1.0);
+    }
+    40.784314% {
+        background-color: rgba(83, 224, 135, 1.0);
+    }
+    40.980392% {
+        background-color: rgba(81, 225, 137, 1.0);
+    }
+    41.176471% {
+        background-color: rgba(78, 226, 140, 1.0);
+    }
+    41.372549% {
+        background-color: rgba(75, 227, 143, 1.0);
+    }
+    41.568627% {
+        background-color: rgba(73, 228, 145, 1.0);
+    }
+    41.764706% {
+        background-color: rgba(70, 229, 148, 1.0);
+    }
+    41.960784% {
+        background-color: rgba(67, 229, 150, 1.0);
+    }
+    42.156863% {
+        background-color: rgba(65, 230, 153, 1.0);
+    }
+    42.352941% {
+        background-color: rgba(62, 231, 156, 1.0);
+    }
+    42.549020% {
+        background-color: rgba(60, 232, 158, 1.0);
+    }
+    42.745098% {
+        background-color: rgba(57, 232, 161, 1.0);
+    }
+    42.941176% {
+        background-color: rgba(55, 233, 163, 1.0);
+    }
+    43.137255% {
+        background-color: rgba(52, 234, 166, 1.0);
+    }
+    43.333333% {
+        background-color: rgba(50, 234, 169, 1.0);
+    }
+    43.529412% {
+        background-color: rgba(48, 235, 171, 1.0);
+    }
+    43.725490% {
+        background-color: rgba(46, 236, 174, 1.0);
+    }
+    43.921569% {
+        background-color: rgba(44, 236, 176, 1.0);
+    }
+    44.117647% {
+        background-color: rgba(42, 237, 179, 1.0);
+    }
+    44.313725% {
+        background-color: rgba(41, 238, 182, 1.0);
+    }
+    44.509804% {
+        background-color: rgba(39, 238, 184, 1.0);
+    }
+    44.705882% {
+        background-color: rgba(38, 239, 187, 1.0);
+    }
+    44.901961% {
+        background-color: rgba(37, 239, 189, 1.0);
+    }
+    45.098039% {
+        background-color: rgba(36, 240, 192, 1.0);
+    }
+    45.294118% {
+        background-color: rgba(36, 241, 194, 1.0);
+    }
+    45.490196% {
+        background-color: rgba(36, 241, 197, 1.0);
+    }
+    45.686275% {
+        background-color: rgba(36, 242, 199, 1.0);
+    }
+    45.882353% {
+        background-color: rgba(36, 242, 202, 1.0);
+    }
+    46.078431% {
+        background-color: rgba(36, 243, 204, 1.0);
+    }
+    46.274510% {
+        background-color: rgba(37, 243, 207, 1.0);
+    }
+    46.470588% {
+        background-color: rgba(38, 244, 209, 1.0);
+    }
+    46.666667% {
+        background-color: rgba(39, 244, 212, 1.0);
+    }
+    46.862745% {
+        background-color: rgba(40, 245, 214, 1.0);
+    }
+    47.058824% {
+        background-color: rgba(42, 245, 216, 1.0);
+    }
+    47.254902% {
+        background-color: rgba(43, 246, 219, 1.0);
+    }
+    47.450980% {
+        background-color: rgba(45, 246, 221, 1.0);
+    }
+    47.647059% {
+        background-color: rgba(46, 246, 224, 1.0);
+    }
+    47.843137% {
+        background-color: rgba(48, 247, 226, 1.0);
+    }
+    48.039216% {
+        background-color: rgba(50, 247, 228, 1.0);
+    }
+    48.235294% {
+        background-color: rgba(52, 248, 231, 1.0);
+    }
+    48.431373% {
+        background-color: rgba(53, 248, 233, 1.0);
+    }
+    48.627451% {
+        background-color: rgba(55, 249, 236, 1.0);
+    }
+    48.823529% {
+        background-color: rgba(57, 249, 238, 1.0);
+    }
+    49.019608% {
+        background-color: rgba(59, 250, 240, 1.0);
+    }
+    49.215686% {
+        background-color: rgba(61, 250, 243, 1.0);
+    }
+    49.411765% {
+        background-color: rgba(63, 250, 245, 1.0);
+    }
+    49.607843% {
+        background-color: rgba(64, 251, 247, 1.0);
+    }
+    49.803922% {
+        background-color: rgba(66, 251, 250, 1.0);
+    }
+    50.000000% {
+        background-color: rgba(68, 252, 252, 1.0);
+    }
+    50.196078% {
+        background-color: rgba(66, 251, 250, 1.0);
+    }
+    50.392157% {
+        background-color: rgba(64, 251, 247, 1.0);
+    }
+    50.588235% {
+        background-color: rgba(63, 250, 245, 1.0);
+    }
+    50.784314% {
+        background-color: rgba(61, 250, 243, 1.0);
+    }
+    50.980392% {
+        background-color: rgba(59, 250, 240, 1.0);
+    }
+    51.176471% {
+        background-color: rgba(57, 249, 238, 1.0);
+    }
+    51.372549% {
+        background-color: rgba(55, 249, 236, 1.0);
+    }
+    51.568627% {
+        background-color: rgba(53, 248, 233, 1.0);
+    }
+    51.764706% {
+        background-color: rgba(52, 248, 231, 1.0);
+    }
+    51.960784% {
+        background-color: rgba(50, 247, 228, 1.0);
+    }
+    52.156863% {
+        background-color: rgba(48, 247, 226, 1.0);
+    }
+    52.352941% {
+        background-color: rgba(46, 246, 224, 1.0);
+    }
+    52.549020% {
+        background-color: rgba(45, 246, 221, 1.0);
+    }
+    52.745098% {
+        background-color: rgba(43, 246, 219, 1.0);
+    }
+    52.941176% {
+        background-color: rgba(42, 245, 216, 1.0);
+    }
+    53.137255% {
+        background-color: rgba(40, 245, 214, 1.0);
+    }
+    53.333333% {
+        background-color: rgba(39, 244, 212, 1.0);
+    }
+    53.529412% {
+        background-color: rgba(38, 244, 209, 1.0);
+    }
+    53.725490% {
+        background-color: rgba(37, 243, 207, 1.0);
+    }
+    53.921569% {
+        background-color: rgba(36, 243, 204, 1.0);
+    }
+    54.117647% {
+        background-color: rgba(36, 242, 202, 1.0);
+    }
+    54.313725% {
+        background-color: rgba(36, 242, 199, 1.0);
+    }
+    54.509804% {
+        background-color: rgba(36, 241, 197, 1.0);
+    }
+    54.705882% {
+        background-color: rgba(36, 241, 194, 1.0);
+    }
+    54.901961% {
+        background-color: rgba(36, 240, 192, 1.0);
+    }
+    55.098039% {
+        background-color: rgba(37, 239, 189, 1.0);
+    }
+    55.294118% {
+        background-color: rgba(38, 239, 187, 1.0);
+    }
+    55.490196% {
+        background-color: rgba(39, 238, 184, 1.0);
+    }
+    55.686275% {
+        background-color: rgba(41, 238, 182, 1.0);
+    }
+    55.882353% {
+        background-color: rgba(42, 237, 179, 1.0);
+    }
+    56.078431% {
+        background-color: rgba(44, 236, 176, 1.0);
+    }
+    56.274510% {
+        background-color: rgba(46, 236, 174, 1.0);
+    }
+    56.470588% {
+        background-color: rgba(48, 235, 171, 1.0);
+    }
+    56.666667% {
+        background-color: rgba(50, 234, 169, 1.0);
+    }
+    56.862745% {
+        background-color: rgba(52, 234, 166, 1.0);
+    }
+    57.058824% {
+        background-color: rgba(55, 233, 163, 1.0);
+    }
+    57.254902% {
+        background-color: rgba(57, 232, 161, 1.0);
+    }
+    57.450980% {
+        background-color: rgba(60, 232, 158, 1.0);
+    }
+    57.647059% {
+        background-color: rgba(62, 231, 156, 1.0);
+    }
+    57.843137% {
+        background-color: rgba(65, 230, 153, 1.0);
+    }
+    58.039216% {
+        background-color: rgba(67, 229, 150, 1.0);
+    }
+    58.235294% {
+        background-color: rgba(70, 229, 148, 1.0);
+    }
+    58.431373% {
+        background-color: rgba(73, 228, 145, 1.0);
+    }
+    58.627451% {
+        background-color: rgba(75, 227, 143, 1.0);
+    }
+    58.823529% {
+        background-color: rgba(78, 226, 140, 1.0);
+    }
+    59.019608% {
+        background-color: rgba(81, 225, 137, 1.0);
+    }
+    59.215686% {
+        background-color: rgba(83, 224, 135, 1.0);
+    }
+    59.411765% {
+        background-color: rgba(86, 224, 132, 1.0);
+    }
+    59.607843% {
+        background-color: rgba(89, 223, 130, 1.0);
+    }
+    59.803922% {
+        background-color: rgba(91, 222, 127, 1.0);
+    }
+    60.000000% {
+        background-color: rgba(94, 221, 125, 1.0);
+    }
+    60.196078% {
+        background-color: rgba(97, 220, 122, 1.0);
+    }
+    60.392157% {
+        background-color: rgba(99, 219, 120, 1.0);
+    }
+    60.588235% {
+        background-color: rgba(102, 218, 117, 1.0);
+    }
+    60.784314% {
+        background-color: rgba(104, 217, 115, 1.0);
+    }
+    60.980392% {
+        background-color: rgba(107, 216, 112, 1.0);
+    }
+    61.176471% {
+        background-color: rgba(109, 215, 110, 1.0);
+    }
+    61.372549% {
+        background-color: rgba(112, 214, 108, 1.0);
+    }
+    61.568627% {
+        background-color: rgba(114, 213, 105, 1.0);
+    }
+    61.764706% {
+        background-color: rgba(117, 212, 103, 1.0);
+    }
+    61.960784% {
+        background-color: rgba(119, 211, 101, 1.0);
+    }
+    62.156863% {
+        background-color: rgba(121, 210, 98, 1.0);
+    }
+    62.352941% {
+        background-color: rgba(124, 209, 96, 1.0);
+    }
+    62.549020% {
+        background-color: rgba(126, 208, 94, 1.0);
+    }
+    62.745098% {
+        background-color: rgba(128, 207, 92, 1.0);
+    }
+    62.941176% {
+        background-color: rgba(130, 206, 89, 1.0);
+    }
+    63.137255% {
+        background-color: rgba(132, 204, 87, 1.0);
+    }
+    63.333333% {
+        background-color: rgba(135, 203, 85, 1.0);
+    }
+    63.529412% {
+        background-color: rgba(137, 202, 83, 1.0);
+    }
+    63.725490% {
+        background-color: rgba(139, 201, 81, 1.0);
+    }
+    63.921569% {
+        background-color: rgba(141, 200, 79, 1.0);
+    }
+    64.117647% {
+        background-color: rgba(143, 199, 77, 1.0);
+    }
+    64.313725% {
+        background-color: rgba(145, 198, 75, 1.0);
+    }
+    64.509804% {
+        background-color: rgba(146, 196, 73, 1.0);
+    }
+    64.705882% {
+        background-color: rgba(148, 195, 71, 1.0);
+    }
+    64.901961% {
+        background-color: rgba(150, 194, 69, 1.0);
+    }
+    65.098039% {
+        background-color: rgba(152, 193, 67, 1.0);
+    }
+    65.294118% {
+        background-color: rgba(154, 192, 65, 1.0);
+    }
+    65.490196% {
+        background-color: rgba(155, 191, 63, 1.0);
+    }
+    65.686275% {
+        background-color: rgba(157, 189, 61, 1.0);
+    }
+    65.882353% {
+        background-color: rgba(159, 188, 59, 1.0);
+    }
+    66.078431% {
+        background-color: rgba(160, 187, 57, 1.0);
+    }
+    66.274510% {
+        background-color: rgba(162, 186, 55, 1.0);
+    }
+    66.470588% {
+        background-color: rgba(163, 185, 54, 1.0);
+    }
+    66.666667% {
+        background-color: rgba(165, 183, 52, 1.0);
+    }
+    66.862745% {
+        background-color: rgba(166, 182, 50, 1.0);
+    }
+    67.058824% {
+        background-color: rgba(168, 181, 48, 1.0);
+    }
+    67.254902% {
+        background-color: rgba(169, 180, 47, 1.0);
+    }
+    67.450980% {
+        background-color: rgba(171, 178, 45, 1.0);
+    }
+    67.647059% {
+        background-color: rgba(172, 177, 43, 1.0);
+    }
+    67.843137% {
+        background-color: rgba(173, 176, 41, 1.0);
+    }
+    68.039216% {
+        background-color: rgba(175, 175, 40, 1.0);
+    }
+    68.235294% {
+        background-color: rgba(176, 173, 38, 1.0);
+    }
+    68.431373% {
+        background-color: rgba(177, 172, 37, 1.0);
+    }
+    68.627451% {
+        background-color: rgba(179, 171, 35, 1.0);
+    }
+    68.823529% {
+        background-color: rgba(180, 170, 33, 1.0);
+    }
+    69.019608% {
+        background-color: rgba(181, 168, 32, 1.0);
+    }
+    69.215686% {
+        background-color: rgba(182, 167, 30, 1.0);
+    }
+    69.411765% {
+        background-color: rgba(183, 166, 28, 1.0);
+    }
+    69.607843% {
+        background-color: rgba(184, 165, 27, 1.0);
+    }
+    69.803922% {
+        background-color: rgba(186, 163, 25, 1.0);
+    }
+    70.000000% {
+        background-color: rgba(187, 162, 24, 1.0);
+    }
+    70.196078% {
+        background-color: rgba(188, 161, 22, 1.0);
+    }
+    70.392157% {
+        background-color: rgba(189, 160, 21, 1.0);
+    }
+    70.588235% {
+        background-color: rgba(190, 158, 19, 1.0);
+    }
+    70.784314% {
+        background-color: rgba(191, 157, 18, 1.0);
+    }
+    70.980392% {
+        background-color: rgba(192, 156, 16, 1.0);
+    }
+    71.176471% {
+        background-color: rgba(193, 154, 15, 1.0);
+    }
+    71.372549% {
+        background-color: rgba(194, 153, 13, 1.0);
+    }
+    71.568627% {
+        background-color: rgba(194, 152, 12, 1.0);
+    }
+    71.764706% {
+        background-color: rgba(195, 151, 11, 1.0);
+    }
+    71.960784% {
+        background-color: rgba(196, 149, 9, 1.0);
+    }
+    72.156863% {
+        background-color: rgba(197, 148, 8, 1.0);
+    }
+    72.352941% {
+        background-color: rgba(198, 147, 7, 1.0);
+    }
+    72.549020% {
+        background-color: rgba(199, 145, 6, 1.0);
+    }
+    72.745098% {
+        background-color: rgba(199, 144, 5, 1.0);
+    }
+    72.941176% {
+        background-color: rgba(200, 143, 4, 1.0);
+    }
+    73.137255% {
+        background-color: rgba(201, 141, 4, 1.0);
+    }
+    73.333333% {
+        background-color: rgba(202, 140, 3, 1.0);
+    }
+    73.529412% {
+        background-color: rgba(202, 139, 3, 1.0);
+    }
+    73.725490% {
+        background-color: rgba(203, 138, 3, 1.0);
+    }
+    73.921569% {
+        background-color: rgba(204, 136, 3, 1.0);
+    }
+    74.117647% {
+        background-color: rgba(204, 135, 2, 1.0);
+    }
+    74.313725% {
+        background-color: rgba(205, 134, 3, 1.0);
+    }
+    74.509804% {
+        background-color: rgba(206, 132, 3, 1.0);
+    }
+    74.705882% {
+        background-color: rgba(206, 131, 3, 1.0);
+    }
+    74.901961% {
+        background-color: rgba(207, 130, 3, 1.0);
+    }
+    75.098039% {
+        background-color: rgba(207, 128, 4, 1.0);
+    }
+    75.294118% {
+        background-color: rgba(208, 127, 4, 1.0);
+    }
+    75.490196% {
+        background-color: rgba(208, 126, 5, 1.0);
+    }
+    75.686275% {
+        background-color: rgba(209, 124, 5, 1.0);
+    }
+    75.882353% {
+        background-color: rgba(209, 123, 6, 1.0);
+    }
+    76.078431% {
+        background-color: rgba(210, 122, 7, 1.0);
+    }
+    76.274510% {
+        background-color: rgba(210, 120, 8, 1.0);
+    }
+    76.470588% {
+        background-color: rgba(211, 119, 9, 1.0);
+    }
+    76.666667% {
+        background-color: rgba(211, 118, 10, 1.0);
+    }
+    76.862745% {
+        background-color: rgba(212, 116, 11, 1.0);
+    }
+    77.058824% {
+        background-color: rgba(212, 115, 12, 1.0);
+    }
+    77.254902% {
+        background-color: rgba(212, 113, 14, 1.0);
+    }
+    77.450980% {
+        background-color: rgba(213, 112, 15, 1.0);
+    }
+    77.647059% {
+        background-color: rgba(213, 111, 16, 1.0);
+    }
+    77.843137% {
+        background-color: rgba(214, 109, 17, 1.0);
+    }
+    78.039216% {
+        background-color: rgba(214, 108, 18, 1.0);
+    }
+    78.235294% {
+        background-color: rgba(214, 107, 19, 1.0);
+    }
+    78.431373% {
+        background-color: rgba(214, 105, 20, 1.0);
+    }
+    78.627451% {
+        background-color: rgba(215, 104, 22, 1.0);
+    }
+    78.823529% {
+        background-color: rgba(215, 102, 23, 1.0);
+    }
+    79.019608% {
+        background-color: rgba(215, 101, 24, 1.0);
+    }
+    79.215686% {
+        background-color: rgba(215, 100, 25, 1.0);
+    }
+    79.411765% {
+        background-color: rgba(216, 98, 26, 1.0);
+    }
+    79.607843% {
+        background-color: rgba(216, 97, 27, 1.0);
+    }
+    79.803922% {
+        background-color: rgba(216, 96, 28, 1.0);
+    }
+    80.000000% {
+        background-color: rgba(216, 94, 30, 1.0);
+    }
+    80.196078% {
+        background-color: rgba(216, 93, 31, 1.0);
+    }
+    80.392157% {
+        background-color: rgba(217, 91, 32, 1.0);
+    }
+    80.588235% {
+        background-color: rgba(217, 90, 33, 1.0);
+    }
+    80.784314% {
+        background-color: rgba(217, 88, 34, 1.0);
+    }
+    80.980392% {
+        background-color: rgba(217, 87, 35, 1.0);
+    }
+    81.176471% {
+        background-color: rgba(217, 86, 36, 1.0);
+    }
+    81.372549% {
+        background-color: rgba(217, 84, 38, 1.0);
+    }
+    81.568627% {
+        background-color: rgba(217, 83, 39, 1.0);
+    }
+    81.764706% {
+        background-color: rgba(217, 81, 40, 1.0);
+    }
+    81.960784% {
+        background-color: rgba(217, 80, 41, 1.0);
+    }
+    82.156863% {
+        background-color: rgba(217, 78, 42, 1.0);
+    }
+    82.352941% {
+        background-color: rgba(217, 77, 43, 1.0);
+    }
+    82.549020% {
+        background-color: rgba(217, 76, 45, 1.0);
+    }
+    82.745098% {
+        background-color: rgba(217, 74, 46, 1.0);
+    }
+    82.941176% {
+        background-color: rgba(217, 73, 47, 1.0);
+    }
+    83.137255% {
+        background-color: rgba(217, 71, 48, 1.0);
+    }
+    83.333333% {
+        background-color: rgba(217, 70, 50, 1.0);
+    }
+    83.529412% {
+        background-color: rgba(217, 68, 51, 1.0);
+    }
+    83.725490% {
+        background-color: rgba(217, 67, 52, 1.0);
+    }
+    83.921569% {
+        background-color: rgba(216, 65, 53, 1.0);
+    }
+    84.117647% {
+        background-color: rgba(216, 64, 55, 1.0);
+    }
+    84.313725% {
+        background-color: rgba(216, 62, 56, 1.0);
+    }
+    84.509804% {
+        background-color: rgba(216, 61, 57, 1.0);
+    }
+    84.705882% {
+        background-color: rgba(216, 59, 59, 1.0);
+    }
+    84.901961% {
+        background-color: rgba(215, 58, 60, 1.0);
+    }
+    85.098039% {
+        background-color: rgba(215, 56, 61, 1.0);
+    }
+    85.294118% {
+        background-color: rgba(215, 55, 63, 1.0);
+    }
+    85.490196% {
+        background-color: rgba(215, 53, 64, 1.0);
+    }
+    85.686275% {
+        background-color: rgba(214, 52, 66, 1.0);
+    }
+    85.882353% {
+        background-color: rgba(214, 50, 67, 1.0);
+    }
+    86.078431% {
+        background-color: rgba(214, 49, 69, 1.0);
+    }
+    86.274510% {
+        background-color: rgba(213, 47, 70, 1.0);
+    }
+    86.470588% {
+        background-color: rgba(213, 46, 71, 1.0);
+    }
+    86.666667% {
+        background-color: rgba(212, 44, 73, 1.0);
+    }
+    86.862745% {
+        background-color: rgba(212, 43, 74, 1.0);
+    }
+    87.058824% {
+        background-color: rgba(211, 41, 76, 1.0);
+    }
+    87.254902% {
+        background-color: rgba(211, 40, 78, 1.0);
+    }
+    87.450980% {
+        background-color: rgba(210, 38, 79, 1.0);
+    }
+    87.647059% {
+        background-color: rgba(210, 37, 81, 1.0);
+    }
+    87.843137% {
+        background-color: rgba(209, 35, 82, 1.0);
+    }
+    88.039216% {
+        background-color: rgba(209, 34, 84, 1.0);
+    }
+    88.235294% {
+        background-color: rgba(208, 32, 85, 1.0);
+    }
+    88.431373% {
+        background-color: rgba(207, 31, 87, 1.0);
+    }
+    88.627451% {
+        background-color: rgba(207, 30, 89, 1.0);
+    }
+    88.823529% {
+        background-color: rgba(206, 28, 90, 1.0);
+    }
+    89.019608% {
+        background-color: rgba(205, 27, 92, 1.0);
+    }
+    89.215686% {
+        background-color: rgba(205, 25, 93, 1.0);
+    }
+    89.411765% {
+        background-color: rgba(204, 24, 95, 1.0);
+    }
+    89.607843% {
+        background-color: rgba(203, 23, 97, 1.0);
+    }
+    89.803922% {
+        background-color: rgba(202, 21, 98, 1.0);
+    }
+    90.000000% {
+        background-color: rgba(202, 20, 100, 1.0);
+    }
+    90.196078% {
+        background-color: rgba(201, 19, 102, 1.0);
+    }
+    90.392157% {
+        background-color: rgba(200, 18, 103, 1.0);
+    }
+    90.588235% {
+        background-color: rgba(199, 16, 105, 1.0);
+    }
+    90.784314% {
+        background-color: rgba(198, 15, 106, 1.0);
+    }
+    90.980392% {
+        background-color: rgba(197, 14, 108, 1.0);
+    }
+    91.176471% {
+        background-color: rgba(196, 13, 110, 1.0);
+    }
+    91.372549% {
+        background-color: rgba(195, 12, 111, 1.0);
+    }
+    91.568627% {
+        background-color: rgba(194, 11, 113, 1.0);
+    }
+    91.764706% {
+        background-color: rgba(193, 10, 114, 1.0);
+    }
+    91.960784% {
+        background-color: rgba(192, 9, 116, 1.0);
+    }
+    92.156863% {
+        background-color: rgba(191, 8, 117, 1.0);
+    }
+    92.352941% {
+        background-color: rgba(190, 8, 119, 1.0);
+    }
+    92.549020% {
+        background-color: rgba(189, 7, 120, 1.0);
+    }
+    92.745098% {
+        background-color: rgba(188, 7, 122, 1.0);
+    }
+    92.941176% {
+        background-color: rgba(187, 6, 123, 1.0);
+    }
+    93.137255% {
+        background-color: rgba(186, 6, 125, 1.0);
+    }
+    93.333333% {
+        background-color: rgba(185, 6, 126, 1.0);
+    }
+    93.529412% {
+        background-color: rgba(184, 6, 128, 1.0);
+    }
+    93.725490% {
+        background-color: rgba(183, 6, 129, 1.0);
+    }
+    93.921569% {
+        background-color: rgba(182, 6, 131, 1.0);
+    }
+    94.117647% {
+        background-color: rgba(181, 6, 132, 1.0);
+    }
+    94.313725% {
+        background-color: rgba(179, 6, 133, 1.0);
+    }
+    94.509804% {
+        background-color: rgba(178, 6, 135, 1.0);
+    }
+    94.705882% {
+        background-color: rgba(177, 6, 136, 1.0);
+    }
+    94.901961% {
+        background-color: rgba(176, 6, 137, 1.0);
+    }
+    95.098039% {
+        background-color: rgba(175, 6, 138, 1.0);
+    }
+    95.294118% {
+        background-color: rgba(174, 7, 140, 1.0);
+    }
+    95.490196% {
+        background-color: rgba(172, 7, 141, 1.0);
+    }
+    95.686275% {
+        background-color: rgba(171, 7, 142, 1.0);
+    }
+    95.882353% {
+        background-color: rgba(170, 8, 143, 1.0);
+    }
+    96.078431% {
+        background-color: rgba(169, 8, 145, 1.0);
+    }
+    96.274510% {
+        background-color: rgba(168, 8, 146, 1.0);
+    }
+    96.470588% {
+        background-color: rgba(166, 9, 147, 1.0);
+    }
+    96.666667% {
+        background-color: rgba(165, 9, 148, 1.0);
+    }
+    96.862745% {
+        background-color: rgba(164, 9, 149, 1.0);
+    }
+    97.058824% {
+        background-color: rgba(163, 10, 150, 1.0);
+    }
+    97.254902% {
+        background-color: rgba(161, 10, 151, 1.0);
+    }
+    97.450980% {
+        background-color: rgba(160, 11, 152, 1.0);
+    }
+    97.647059% {
+        background-color: rgba(159, 11, 153, 1.0);
+    }
+    97.843137% {
+        background-color: rgba(158, 11, 154, 1.0);
+    }
+    98.039216% {
+        background-color: rgba(156, 12, 155, 1.0);
+    }
+    98.235294% {
+        background-color: rgba(155, 12, 156, 1.0);
+    }
+    98.431373% {
+        background-color: rgba(154, 12, 157, 1.0);
+    }
+    98.627451% {
+        background-color: rgba(153, 12, 158, 1.0);
+    }
+    98.823529% {
+        background-color: rgba(151, 13, 159, 1.0);
+    }
+    99.019608% {
+        background-color: rgba(150, 13, 160, 1.0);
+    }
+    99.215686% {
+        background-color: rgba(149, 13, 161, 1.0);
+    }
+    99.411765% {
+        background-color: rgba(148, 13, 162, 1.0);
+    }
+    99.607843% {
+        background-color: rgba(146, 14, 163, 1.0);
+    }
+    99.803922% {
+        background-color: rgba(145, 14, 164, 1.0);
+    }
+    100.000000% {
+        background-color: rgba(144, 14, 165, 1.0);
+    }
+}
+
+#status {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem;
+    opacity: 0.0;
+    transition: opacity ease-out 0.3s;
+    z-index: 15000;
+}
+#status.active {
+    display: block;
+    opacity: 1.0;
+}
+#status > span {
+    display: block;
+    margin: 0.25rem;
+    width: calc(100% - 1.5rem);
+    border-radius: 0.1rem;
+    background-color: var(--element-background);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0.0;
+    background-color: var(--element-background);
+    backdrop-filter: blur(0.25rem);
+    transition: 0.5s ease-in-out opacity;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 5000;
+}
+.modal.active {
+    display: block;
+    opacity: 1.0;
+}
+.modal-inner {
+    max-height: 80%;
+    margin: 2.5%;
+    padding: 1.0rem;
+    border-radius: 1.0rem;
+    background-color: var(--element-background);
+    overflow-x: hidden;
+    overflow-y: auto;
+    cursor: default;
+}
+.modal-inner::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+.modal-inner::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.modal-inner::-webkit-scrollbar-thumb {
+    background-color: var(--foreground-color);
+    border-radius: 0.25rem;
+}
+.modal-title {
+    width: calc(100% - 2.0rem);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: var(--element-background);
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+.modal-action-buttons > .button {
+    display: inline-block;
+    width: 6.0rem;
+}
+
+input[type=text],
+input[type=number],
+input[type=password] {
+    width: 10.0rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    color: var(--foreground-color);
+    border: none;
+    outline: none;
+    background-color: var(--element-background);
+}
+input[type=text]:focus-visible,
+input[type=number]:focus-visible,
+input[type=password]:focus-visible {
+    outline: none !important;
+}
+input[type=text]:disabled:focus-visible,
+input[type=number]:disabled:focus-visible,
+input[type=password]:disabled:focus-visible {
+    opacity: var(--element-disabled-opacity);
+}
+input[type=text]::placeholder,
+input[type=number]::placeholder,
+input[type=password]::placeholder {
+    color: var(--foreground-placeholder-color) !important;
+}
+input[type=text]::-moz-placeholder,
+input[type=number]::-moz-placeholder,
+input[type=password]::-moz-placeholder {
+    color: var(--foreground-placeholder-color) !important;
+}
+input[type=text]::-webkit-input-placeholder,
+input[type=number]::-webkit-input-placeholder,
+input[type=password]::-webkit-input-placeholder {
+    color: var(--foreground-placeholder-color) !important;
+}
+
+input[type=button],
+input[type=submit] {
+    width: 11.0rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    color: var(--foreground-color);
+    border: none;
+    outline: none;
+    background-color: var(--element-background);
+}
+input[type=button]:disabled,
+input[type=submit]:disabled {
+    opacity: var(--element-disabled-opacity);
+}
+
+select {
+    width: calc(100% - 1.0rem);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    color: var(--foreground-color);
+    border: none;
+    outline: none;
+    background-color: var(--element-background);
+}
+
+.file-input-wrapper {
+    width: 100%;
+}
+.file-input-wrapper > input[type=file] {
+    display: none;
+}
+.file-input-wrapper > .file-input-names {
+    width: calc(100% - 2.0rem);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: var(--element-background);
+    overflow: hidden;
+}
+.file-input-wrapper > .file-input-names:empty {
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    width: 11.0rem;
+    color: var(--foreground-color);
+    border: none;
+    outline: none;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+
+.checkbox {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    color: var(--foreground-color);
+    box-sizing: border-box;
+    border: 0.1rem solid var(--foreground-color);
+    border-radius: 0.1rem;
+    cursor: pointer;
+}
+.checkbox[data-value="0"] {
+    background-color: transparent;
+}
+.checkbox[data-value="1"] {
+    background-color: var(--foreground-color);
+}
+.checkbox[data-value="2"] {
+    background-color: var(--foreground-placeholder-color);
+}
+
+.toggle {
+    position: relative;
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0;
+    width: 10.0rem;
+    height: 2.0rem;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+.toggle-inner {
+    position: absolute;
+    width: 10.0rem;
+    height: 2.0rem;
+    background-color: var(--element-background);
+}
+.toggle-inner > div {
+    position: absolute;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 5.0rem;
+    height: 2.0rem;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.0rem;
+}
+.toggle-inner > .toggle-option-0 {
+    left: 0;
+}
+.toggle-inner > .toggle-option-1 {
+    left: 5.0rem;
+}
+.toggle-inner > .toggle-slide {
+    margin: 0.25rem;
+    width: 4.5rem;
+    height: 1.5rem;
+    left: 5.0rem;
+    background-color: var(--foreground-color);
+    border-radius: 0.1rem;
+    transition: left ease-out 0.15s;
+}
+.toggle.option-1 > .toggle-inner > .toggle-slide {
+    left: 0;
+}
+
+table {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-spacing: 0;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
+thead > tr > th,
+tbody > tr > th,
+tbody > tr > td {
+    padding: 0.25rem 0.5rem;
+    border-bottom: 0.1rem solid var(--foreground-color);
+}
+thead > tr > th {
+    text-align: center;
+}
+tbody > tr > th {
+    text-align: left;
+}
+tbody > tr > td {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.data-table {
+    width: calc(100% - 3.0rem);
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    overflow: auto;
+}
+.data-table::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+.data-table::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.data-table::-webkit-scrollbar-thumb {
+    background-color: var(--foreground-color);
+    border-radius: 0.25rem;
+}
+.data-table > table {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-spacing: 0;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 0.1rem 0.1rem 0.5rem var(--element-shadow-color);
+}
+.data-table > table > caption {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    box-shadow: 0.1rem 0.1rem 0.5rem var(--element-shadow-color);
+}
+.data-table > table > thead > tr > th,
+.data-table > table > tbody > tr > th,
+.data-table > table > tbody > tr > td {
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+    border-bottom: none;
+}
+.data-table > table > thead > tr > th {
+    padding: 0.5rem !important;
+    text-align: center;
+    overflow: hidden;
+}
+.data-table > table > tbody > tr > th {
+    text-align: left;
+}
+.data-table > table > tbody > tr > td {
+    text-align: right;
+    overflow-wrap: break-word;
+}
+.data-table > table > tbody > tr:nth-child(odd) {
+    background-color: var(--element-background) !important;
+}
+.data-table > table > tbody > tr:hover,
+.data-table > table > tbody > tr > td:hover,
+.data-table > table > tbody > tr > th:hover {
+    background-color: var(--foreground-placeholder-color) !important;
+}
+
+.accordian-select {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    width: max-content;
+    background-color: var(--element-background);
+    overflow: hidden;
+    cursor: pointer;
+}
+.accordian-select-option {
+    width: auto;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height ease-out 0.3s;
+}
+.accordian-select-option.active {
+    max-height: 2.0rem;
+}
+.accordian-select.active > .accordian-select-option {
+    max-height: 2.0rem;
+}
+.accordian-select-option.active::after {
+    content: ">";
+    margin-left: 0.75rem;
+    font-weight: 900;
+    font-size: 0.75rem;
+}
+.accordian-select.active > .accordian-select-option.active::after {
+    content: "<";
+    margin-left: 0.75rem;
+    font-weight: 900;
+    font-size: 0.75rem;
+}
+
+.duration-picker {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
+.duration-picker-text-container {
+    margin-bottom: 0.5rem;
+}
+.duration-picker-text-container > span {
+    display: block;
+}
+.duration-picker-items-container {
+    display: flex;
+    justify-content: center;
+}
+.duration-picker-items-container > div {
+    display: inline-block;
+}
+.duration-picker-items-container > .number-picker {
+    min-width: 5.0%;
+}
+.duration-picker-divider {
+    padding: 0.5rem;
+    padding-top: 2.5rem;
+    font-family: monospace;
+    font-size: 4.0rem;
+    font-weight: 900;
+    line-height: 4.0rem;
+}
+
+.number-picker {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    text-align: center;
+}
+.number-picker > div {
+    margin: 0.25rem auto;
+    text-align: center;
+}
+.number-picker.horizontal {
+    margin: 0.5rem;
+    width: 6.5rem;
+}
+.number-picker.horizontal > .number-picker-button,
+.number-picker.horizontal > .number-picker-display {
+    display: inline-block;
+}
+.number-picker.vertical > .number-picker-button,
+.number-picker.vertical > .number-picker-display {
+    display: block;
+}
+.number-picker-label {
+    display: block;
+    margin-bottom: 0.75rem !important;
+    color: var(--foreground-placeholder-color);
+    font-family: monospace;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    font-weight: 300;
+}
+.number-picker-label:empty {
+    margin: 0 !important;
+}
+.number-picker-button {
+    width: 1.5rem;
+    height: 1.5rem;
+    text-align: center;
+    vertical-align: middle;
+    font-family: monospace;
+    font-size: 1.5rem;
+    line-height: 1.35rem;
+    font-weight: 900;
+    border-radius: 0.75rem;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+.number-picker.horizontal > .number-picker-button.up {
+    margin-left: 0.5rem;
+    transform: rotate(0deg);
+}
+.number-picker.horizontal > .number-picker-button.down {
+    margin-right: 0.5rem;
+    transform: rotate(180deg);
+}
+.number-picker.vertical > .number-picker-button.up {
+    transform: rotate(-90deg);
+}
+.number-picker.vertical > .number-picker-button.down {
+    transform: rotate(90deg);
+}
+.number-picker-display {
+    margin: 0.5rem auto !important;
+    padding-bottom: 0.25rem;
+    font-family: monospace;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    font-weight: 300;
+}
+
+.dropdown-with-text {
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0.25rem;
+    background-color: var(--element-background);
+}
+.dropdown-with-text-placeholder {
+    display: inline-block;
+    width: calc(100% - 2.0rem);
+    color: var(--foreground-color);
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+.dropdown-with-text-placeholder[data-value="-2"] {
+    color: var(--foreground-placeholder-color);
+}
+.dropdown-with-text-placeholder[data-value="-1"] {
+    display: none;
+}
+.dropdown-with-text-input {
+    display: none;
+    margin: 0 !important;
+    width: calc(100% - 4.0rem) !important;
+    border-radius: 0.25rem;
+}
+.dropdown-with-text-placeholder[data-value="-1"] + .dropdown-with-text-input {
+    display: inline-block;
+}
+.dropdown-with-text-handle {
+    display: inline-block;
+    padding: 0.25rem;
+    width: 1.0rem;
+    height: 1.0rem;
+    font-family: monospace;
+    font-size: 1.0rem;
+    font-weight: 900;
+    line-height: 1.0rem;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    transform: rotate(-270deg);
+    transition: transform ease-in-out 0.3s;
+}
+.dropdown-with-text.active > .dropdown-with-text-handle {
+    transform: rotate(-90deg);
+}
+.dropdown-with-text-options {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height ease-in-out 0.3s;
+}
+.dropdown-with-text.active > .dropdown-with-text-options {
+    max-height: 30.0rem;
+}
+
+.revert-button {
+    padding: 0.5rem;
+    width: 1.0rem;
+    height: 1.0rem;
+    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.0rem" height="1.0rem" viewBox="0 0 512 512" version="1.1" id="revert_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><path id="inner" style="fill:rgb(255, 255, 255);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" d="m 246.56101,50.504159 a 24.028724,24.028724 0 0 0 -0.26456,0.002 24.028724,24.028724 0 0 0 -16.63295,7.03516 l -50.57613,50.578111 a 24.028724,24.028724 0 0 0 -7.43773,17.37891 24.028724,24.028724 0 0 0 5.50413,15.30078 24.028724,24.028724 0 0 0 0.26456,0.31634 24.028724,24.028724 0 0 0 0.26835,0.31068 24.028724,24.028724 0 0 0 0.27591,0.30652 24.028724,24.028724 0 0 0 0.27212,0.2948 24.031127,24.031127 0 0 0 0,0.0113 24.028724,24.028724 0 0 0 0.44145,0.45313 24.028724,24.028724 0 0 0 0.13228,0.13266 l 50.83805,50.8379 a 24.028724,24.028724 0 0 0 33.97833,0 24.028724,24.028724 0 0 0 0,-33.97852 l -9.95678,-9.95702 h 2.33197 a 24.028724,24.028724 0 0 0 0.76157,-0.0151 c 72.83112,0.40725 131.2422,59.05505 131.2422,131.98632 0,73.18605 -58.81776,132.00412 -132.00377,132.00393 -73.18602,-7e-5 -131.99623,-58.81802 -131.99623,-132.00396 A 23.999999,23.999999 0 0 0 100,257.50006 23.999999,23.999999 0 0 0 76.000004,281.4981 c 0,99.12699 80.873196,179.99996 180.000006,180 C 355.12718,461.49836 436,380.62528 436,281.4981 436,182.879 355.95074,102.34048 257.51938,101.51764 a 24.028724,24.028724 0 0 0 -1.51937,-0.0488 h -2.32819 l 9.953,-9.951161 a 24.028724,24.028724 0 0 0 0,-33.9785 24.028724,24.028724 0 0 0 -17.08006,-7.03711 z" /></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.1rem;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+.delete-button {
+    padding: 0.5rem;
+    width: 1.0rem;
+    height: 1.0rem;
+    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.0rem" height="1.0rem" viewBox="0 0 512 512" version="1.1" id="delete_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><path id="inner" style="fill:rgb(255, 255, 255);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.77968;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" d="M 183.99944,51.999379 A 23.999809,23.999809 0 0 0 160.00133,75.997428 H 111.99755 A 23.999754,24.001774 0 0 0 87.999437,99.997416 23.999754,24.001774 0 0 0 111.99755,123.99741 h 143.79098 0.20788 144.00604 A 23.999754,24.001774 0 0 0 424.00056,99.997416 23.999754,24.001774 0 0 0 400.00245,75.997428 H 351.99867 A 23.999809,23.999809 0 0 0 328.00056,51.999379 Z m -55.99786,95.997351 v 288.00586 c 0.002,13.2531 10.74482,23.99588 23.99811,23.99803 h 207.99987 c 13.25329,-0.002 23.99584,-10.74493 23.99811,-23.99803 V 147.99673 Z m 51.78708,60 a 23.999809,23.999809 0 0 1 0.002,0 23.999809,23.999809 0 0 1 0.20788,0 23.999809,23.999809 0 0 1 23.99811,24 V 376.00259 A 23.999809,23.999809 0 0 1 179.99843,400.00062 23.999809,23.999809 0 0 1 156.0007,376.00259 V 231.99673 a 23.999809,23.999809 0 0 1 23.78683,-24 z m 75.99836,0 a 23.999809,23.999809 0 0 1 0.20788,0 23.999809,23.999809 0 0 1 24.00604,24 V 376.00259 A 23.999809,23.999809 0 0 1 255.9949,400.00062 23.999809,23.999809 0 0 1 231.99717,376.00259 V 231.99673 a 23.999809,23.999809 0 0 1 23.7891,-24 z m 76.21266,0 a 23.999809,23.999809 0 0 1 23.99811,24 v 144.00586 a 23.999809,23.999809 0 0 1 -23.99811,23.99803 23.999809,23.999809 0 0 1 -23.99811,-23.99803 V 231.99673 a 23.999809,23.999809 0 0 1 23.99811,-24 z" /></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 0.1rem;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .modal-inner {
+        max-height: 90%;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: calc(100% - 2.0rem);
+    }
+
+    input[type=button],
+    input[type=submit] {
+        width: calc(100% - 1.0rem);
+    }
+
+    .duration-picker-items-container > .number-picker {
+        min-width: 12.5%;
+    }
+
+}
