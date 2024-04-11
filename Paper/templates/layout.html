@@ -1,0 +1,95 @@
+<!--
+Copyright (c) 2024, Alexander Austin
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+--->
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <title>{{ title }}</title>
+
+
+    <link rel="stylesheet" href="/styles/main.css">
+
+    {% if show_navigation %}
+
+    <link rel="stylesheet" href="/styles/menu.css">
+
+    {% endif %}
+
+
+    {% block styles %}{% endblock %}
+
+
+    <script src="/scripts/main.js"></script>
+
+    {% if show_navigation %}
+    
+    <script src="/scripts/menu.js"></script>
+
+    {% endif %}
+
+</head>
+
+<body>
+
+    <div id="loader" onclick="loaderHide();">
+
+        <div id="loader-spinner"></div>
+
+    </div>
+
+
+    {% if show_navigation %}
+
+    <div id="menu-handle" class="pointer" onclick="navigationSet();"></div>
+
+    <div id="menu">
+
+        <div class="menu-item text-large text-bold text-upper pointer" data-url="/" onclick="window.location = this.dataset.url;"><div></div>Images</div>
+
+        <div class="menu-item text-large text-bold text-upper pointer" data-url="/settings" onclick="window.location = this.dataset.url;"><div></div>Settings</div>
+
+        <div class="menu-item text-large text-bold text-upper pointer" data-url="/user" onclick="window.location = this.dataset.url;"><div></div>User</div>
+
+    </div>
+
+    {% endif %}
+
+
+    <div id="contents">
+
+        {% block contents %}{% endblock %}
+
+    </div>
+
+
+    <div id="status"></div>
+    <div id="chunk-size" class="hidden" data-chunk-size="{{ chunk_size }}"></div>
+
+
+    {% block scripts %}{% endblock %}
+
+</body>
+
+</html>
