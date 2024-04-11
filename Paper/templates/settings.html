@@ -1,0 +1,219 @@
+<!--
+Copyright (c) 2024, Alexander Austin
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+--->
+
+
+{% extends "layout.html" %}
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="/styles/settings.css">
+
+{% endblock %}
+
+
+{% block contents %}
+
+<span class="text-larger">Settings</span>
+
+
+<div class="settings-section">
+
+    <span class="settings-section-title text-large text-bold">Passwords</span>
+
+    <div class="settings-section-contents">
+
+        <div class="password-settings-option" data-key="upper" data-value="true" data-value-type="boolean">
+            <div class="password-settings-option-description">Require at least 1 upper case character.</div>
+            <div class="checkbox" data-value="1"></div>
+        </div>
+
+        <div class="password-settings-option" data-key="lower" data-value="true" data-value-type="boolean">
+            <div class="password-settings-option-description">Require at least 1 lower case character.</div>
+            <div class="checkbox" data-value="1"></div>
+        </div>
+
+        <div class="password-settings-option" data-key="number" data-value="true" data-value-type="boolean">
+            <div class="password-settings-option-description">Require at least 1 numeric character.</div>
+            <div class="checkbox" data-value="1"></div>
+        </div>
+
+        <div class="password-settings-option" data-key="special" data-value="true" data-value-type="boolean">
+            <div class="password-settings-option-description">Require at least 1 special character.</div>
+            <div class="checkbox" data-value="1"></div>
+        </div>
+
+        <div class="password-settings-option" data-key="length" data-value="8" data-value-type="integer" data-min="6" data-max="128">
+            <div class="password-settings-option-description">Minimum password length.</div>
+            <div class="number-picker horizontal">
+                <div class="number-picker-label"></div>
+                <div class="number-picker-button down">></div>
+                <div class="number-picker-display">8</div>
+                <div class="number-picker-button up">></div>
+            </div>
+        </div>
+
+
+        <div class="settings-section-action-buttons">
+
+            <div id="password-settings-revert-button" class="button">Revert</div>
+            <div id="password-settings-save-button" class="button">Save</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="settings-section">
+
+    <span class="settings-section-title text-large text-bold">Tasks</span>
+
+    <div class="settings-section-contents">
+
+        <div id="task-duration-picker-container"></div>
+
+
+        <div class="settings-section-action-buttons">
+
+            <div id="task-settings-revert-button" class="button">Revert</div>
+            <div id="task-settings-save-button" class="button">Save</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="settings-section">
+
+    <span class="settings-section-title text-large text-bold">Categories</span>
+
+    <div class="settings-section-contents">
+
+        <span class="text text-bold">Create New Category / Subcategory</span>
+
+        <div id="new-category-subcategory-form">
+
+            <div id="new-category-dropdown" class="dropdown-with-text">
+
+                <div class="dropdown-with-text-placeholder" data-value="-2" data-id="-2" data-name="Select/Create Category">Select/Create Category</div>
+
+                <input class="dropdown-with-text-input" type="text" placeholder="Create New Category..." value="" autocomplete="off" autocorrect="off" maxlength="128" />
+
+                <div class="dropdown-with-text-handle">></div>
+
+                <div class="dropdown-with-text-options">
+
+                    <div class="dropdown-with-text-option" data-id="-1" data-name="* Create New Category *">* Create New Category *</div>
+                    <div class="dropdown-with-text-option" data-id="0" data-name="People">People</div>
+                    <div class="dropdown-with-text-option" data-id="1" data-name="Nature">Nature</div>
+
+                </div>
+
+            </div>
+
+            <input id="new-subcategory-input" class="hidden" type="text" placeholder="Create New Subcategory..." value="" autocomplete="off" autocorrect="off" maxlength="128" />
+
+            <div class="settings-section-action-buttons">
+
+                <div id="new-category-subcategory-settings-revert-button" class="button">Revert</div>
+                <div id="new-category-subcategory-settings-save-button" class="button">Save</div>
+
+            </div>
+
+        </div>
+
+
+        <span class="text text-bold">Edit Category / Subcategory</span>
+
+        <div id="category-settings-edit-container"></div>
+
+        <div class="settings-section-action-buttons">
+
+            <div id="category-settings-edit-revert-button" class="button">Revert</div>
+            <div id="category-settings-edit-save-button" class="button">Save</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="settings-section">
+
+    <span class="settings-section-title text-large text-bold">Server Info</span>
+
+    <div class="settings-section-contents">
+
+        <div class="data-table">
+
+            <table id="info-table">
+
+                <caption class="text-large">Server Info</caption>
+
+                <thead>
+
+                    <tr id="info-table-header"></tr>
+
+                </thead>
+
+                <tbody id="info-table-body"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="settings-section">
+
+    <span class="settings-section-title text-large text-bold">Logs</span>
+
+    <div class="settings-section-contents">
+
+        <div class="data-table">
+
+            <table id="log-table">
+
+                <caption class="text-large">Logs</caption>
+
+                <thead>
+
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Source</th>
+                        <th scope="col">Log</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="log-table-body"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/scripts/settings.js"></script>
+
+{% endblock %}
