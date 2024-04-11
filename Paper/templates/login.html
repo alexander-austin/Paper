@@ -1,0 +1,49 @@
+<!--
+Copyright (c) 2024, Alexander Austin
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+--->
+
+
+{% extends "layout.html" %}
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="/styles/login.css">
+
+{% endblock %}
+
+
+{% block contents %}
+
+<div id="login">
+
+    <form action="/login" method="post" enctype="multipart/form-data">
+
+        <span class="text-larger">Login</span>
+
+        <input type="text" name="username" value="" placeholder="Enter username..." autocomplete="username" />
+
+        <input id="login-password" type="password" name="password" value="" placeholder="Enter password..." autocomplete="current-password" />
+
+        <input type="submit" title="Login" class="pointer" />
+
+        <span class="text error-text">{{ login_error }}</span>
+
+    </form>
+
+</div>
+
+<div id="password-regex" data-password-regex="{{ password_regex }}"></div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/scripts/login.js"></script>
+
+{% endblock %}
