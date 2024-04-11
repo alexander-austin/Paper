@@ -1,0 +1,51 @@
+/*
+    Copyright (c) 2024, Alexander Austin
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+
+form {
+    display: flex;
+    justify-content: stretch;
+    flex-flow: column nowrap;
+    margin: auto;
+    padding: 1.0rem;
+    width: 14.0rem;
+}
+form > span {
+    width: 11.5rem;
+    text-align: center;
+}
+
+#password-regex {
+    display: none;
+}
+.password-bad {
+    outline: 0.2rem solid var(--element-error-color) !important;
+}
+.password-good {
+    outline: 0.2rem solid var(--app-color) !important;
+}
+.error-text {
+    color: var(--element-error-color);
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    form {
+        width: auto;
+    }
+
+    form > span {
+        width: 100%;
+    }
+
+    form > span:first-of-type {
+        margin-bottom: 1.0rem;
+    }
+
+}
