@@ -1,0 +1,89 @@
+/*
+    Copyright (c) 2024, Alexander Austin
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+
+.all-users-item {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    opacity: 1.0;
+    transition: all ease-in-out 0.3s;
+}
+.all-users-item.delete {
+    opacity: var(--element-disabled-opacity);
+}
+.all-users-item > .user-label {
+    display: inline-block;
+    width: 40%;
+    text-align: left;
+}
+.all-users-item > .user-input {
+    display: inline-block;
+    width: 45% !important;
+}
+.all-users-item > .delete-button {
+    margin: 0.5rem auto;
+}
+
+.permission-info {
+    display: inline-block;
+    margin: 0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0.1rem solid var(--foreground-color);
+    border-radius: 1rem;
+    vertical-align: middle;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    cursor: pointer;
+}
+.permission-item > .user-label {
+    display: inline-block;
+    margin-left: 0.5rem;
+    width: 75%;
+    text-align: left;
+}
+.permission-description {
+    display: block;
+    padding: 0;
+    width: calc(100% - 1.0rem);
+    max-height: 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+.permission-description.active {
+    padding: 0.5rem;
+    max-height: 10.0rem;
+}
+
+.new-user-item {
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
+.new-user-item > .user-label {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+.new-user-item > .user-input {
+    display: block;
+    margin: 0.5rem auto !important;
+    width: 75% !important;
+}
+
+#new-user-permission-container {
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
