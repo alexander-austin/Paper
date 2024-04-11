@@ -1,0 +1,125 @@
+/*
+    Copyright (c) 2024, Alexander Austin
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+
+body::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--foreground-color);
+    border-radius: 0.25rem;
+}
+
+.settings-section {
+    margin: 0.5rem;
+    width: calc(100% - 1.0rem);
+}
+.settings-section-title {
+    margin: 0.5rem;
+    width: 100%;
+    cursor: pointer;
+}
+.settings-section-contents {
+    margin: 0 auto;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all ease-in-out 0.3s;
+}
+.settings-section.active > .settings-section-contents {
+    padding: 0;
+    max-height: 100.0rem;
+}
+.settings-section-contents > .data-table {
+    display: none;
+    margin: 0 auto;
+    padding: 0;
+    width: calc(100% - 1.0rem);
+}
+.settings-section.active > .settings-section-contents > .data-table {
+    display: block;
+}
+.settings-section-action-buttons > .button {
+    display: inline-block;
+    width: 6.0rem;
+}
+
+.password-settings-option {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    width: 50%;
+    vertical-align: middle;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    cursor: pointer;
+}
+.password-settings-option > div {
+    display: inline-block;
+}
+.password-settings-option-description {
+    margin-left: 0.5rem;
+}
+.password-settings-option > .checkbox {
+    margin: 0.5rem;
+}
+
+#new-category-subcategory-form {
+    margin: 0.5rem auto;
+    width: 50%;
+}
+
+.category-editor {
+    width: 100%;
+    margin: 0.25rem;
+    color: var(--foreground-color);
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
+.category-editor.category {
+    margin-top: 0.75rem;
+}
+.category-editor.delete {
+    color: var(--foreground-placeholder-color);
+    opacity: var(--element-disabled-opacity);
+}
+.category-editor > div,
+.category-editor > input {
+    display: inline-block;
+    margin: 0.5rem;
+    vertical-align: middle;
+}
+.category-editor-name {
+    overflow: hidden;
+}
+.category-editor.category > .category-editor-name {
+    width: calc(100% - 9.0rem);
+    font-weight: 900;
+}
+.category-editor.subcategory > .category-editor-name {
+    width: calc(100% - 10.0rem);
+    margin-left: 1.5rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .password-settings-option {
+        width: calc(100% - 1.0rem);
+    }
+
+    #new-category-subcategory-form {
+        width: 100%;
+    }
+
+}
