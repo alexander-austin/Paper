@@ -1,0 +1,60 @@
+/*
+    Copyright (c) 2024, Alexander Austin
+    All rights reserved.
+
+    This source code is licensed under the BSD-style license found in the
+    LICENSE file in the root directory of this source tree.
+*/
+
+
+.user-header {
+    display: block;
+    cursor: pointer;
+}
+
+.user-section {
+    margin: 0.5rem auto;
+    padding: 0;
+    width: 50%;
+    max-height: 0;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+    overflow: hidden;
+    transition: all ease-in-out 0.3s;
+}
+.user-section.active {
+    padding: 0.5rem;
+    max-height: 3000.0rem;
+}
+
+.current-user-item {
+    display: block;
+    margin: 0.5rem auto;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: var(--element-background);
+}
+.current-user-item > .user-label {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+.current-user-item > .user-input {
+    display: block;
+    margin: 0.5rem auto !important;
+    width: 75% !important;
+}
+.user-action-buttons > .button {
+    display: inline-block;
+    width: 6.0rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .user-section {
+        margin: 0.5rem;
+        width: calc(100% - 2.0rem);
+    }
+
+}
