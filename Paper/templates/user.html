@@ -1,0 +1,149 @@
+<!--
+Copyright (c) 2024, Alexander Austin
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+--->
+
+
+{% extends "layout.html" %}
+
+
+{% block styles %}
+
+<link rel="stylesheet" href="/styles/user.css">
+
+{% if auth_admin %}
+
+<link rel="stylesheet" href="/styles/user_extended.css">
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block contents %}
+
+<span class="text-larger">User</span>
+
+<span id="current-user-header" class="user-header text-large text-bold" data-current-user-id="{{ user.id }}">Current User</span>
+
+<div id="current-user-section" class="user-section">
+
+    <div class="current-user-item">
+
+        <span class="user-label text">Username</span>
+        <input class="user-input" type="text" value="{{ user.username }}" data-original-value="{{ user.username }}" data-key="username" placeholder="Enter username..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="current-user-item">
+
+        <span class="user-label text">Given Name</span>
+        <input class="user-input" type="text" value="{{ user.given_name }}" data-original-value="{{ user.given_name }}" data-key="given_name" placeholder="Enter given name..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="current-user-item">
+
+        <span class="user-label text">Family Name</span>
+        <input class="user-input" type="text" value="{{ user.family_name }}" data-original-value="{{ user.family_name }}" data-key="family_name" placeholder="Enter family name..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="current-user-item">
+
+        <span class="user-label text">Password</span>
+        <input class="user-input" type="password" value="" data-original-value="" data-key="password" placeholder="Enter new password..." autocomplete="off" autocorrect="off" maxlength="128" />
+
+    </div>
+
+    <div class="user-action-buttons">
+
+        <div id="current-user-revert-button" class="button">Revert</div>
+        <div id="current-user-save-button" class="button">Save</div>
+
+    </div>
+
+</div>
+
+
+{% if auth_admin %}
+
+<span id="all-users-header" class="user-header text-large text-bold hidden">All Users</span>
+
+<div id="all-users-section" class="user-section hidden">
+
+    <div id="all-users-item-container"></div>
+
+    <div class="user-action-buttons">
+
+        <div id="all-users-revert-button" class="button">Revert</div>
+        <div id="all-users-save-button" class="button">Save</div>
+
+    </div>
+
+</div>
+
+
+<span id="new-user-header" class="user-header text-large text-bold hidden">New User</span>
+
+<div id="new-user-section" class="user-section hidden">
+
+    <div class="new-user-item">
+
+        <span class="user-label text">Username</span>
+        <input class="user-input" type="text" value="" data-original-value="" data-key="username" placeholder="Enter username..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="new-user-item">
+
+        <span class="user-label text">Given Name</span>
+        <input class="user-input" type="text" value="" data-original-value="" data-key="given_name" placeholder="Enter given name..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="new-user-item">
+
+        <span class="user-label text">Family Name</span>
+        <input class="user-input" type="text" value="" data-original-value="" data-key="family_name" placeholder="Enter family name..." autocomplete="off" autocorrect="off" maxlength="256" />
+
+    </div>
+
+    <div class="new-user-item">
+
+        <span class="user-label text">Password</span>
+        <input class="user-input" type="password" value="" data-original-value="" data-key="password" placeholder="Enter password..." autocomplete="off" autocorrect="off" maxlength="128" />
+
+    </div>
+
+    <div id="new-user-permission-container"></div>
+
+    <div class="user-action-buttons">
+
+        <div id="new-user-revert-button" class="button">Revert</div>
+        <div id="new-user-save-button" class="button">Save</div>
+
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="/scripts/user.js"></script>
+
+{% if auth_admin %}
+
+<script src="/scripts/user_extended.js"></script>
+
+{% endif %}
+
+
+{% endblock %}
