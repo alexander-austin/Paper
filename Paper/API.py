@@ -575,14 +575,20 @@ def maintenance(subpath):
             elif subpath == 'logs':
 
                 if authorization['api'] == True or authorization['admin'] == True:
-                    
-                    requestData = request.json
 
-                    if isinstance(requestData, dict):
+                    requestData = None
 
-                        if 'data' in requestData.keys():
+                    try:
 
-                            requestData = requestData['data']
+                        requestData = request.json
+
+                        if isinstance(requestData, dict):
+
+                            if 'data' in requestData.keys():
+
+                                requestData = requestData['data']
+
+                    except: pass
 
                     logData = backend.getLogs(requestData)
 
