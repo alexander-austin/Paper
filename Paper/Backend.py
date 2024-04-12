@@ -1207,9 +1207,17 @@ class Backend:
 
                 else:
 
+                    self.db.settings.rotateMediaQueue(
+                        forward=True
+                    )
+
                     imageSettings = self.db.settings.get('image')
 
             else:
+
+                self.db.settings.rotateMediaQueue(
+                    forward=True
+                )
 
                 imageSettings = self.db.settings.get('image')
 
