@@ -155,7 +155,7 @@ var apiResponses = [
 ];
 
 
-async function apiHandler(type, data) {
+async function apiHandler(type, data, background=false) {
 
     const request = getApiRequest(type, data);
 
@@ -183,8 +183,10 @@ async function apiHandler(type, data) {
                 'start',
                 {
                     'handler': responseType.data_key,
-                    'text': responseType.description
-                }
+                    'text': responseType.description,
+                    'background': background
+                },
+                background
             );
 
             fetch(request)
@@ -216,8 +218,10 @@ async function apiHandler(type, data) {
                                     'end',
                                     {
                                         'handler': apiResponse.data_key,
-                                        'text': apiResponse.description
-                                    }
+                                        'text': apiResponse.description,
+                                        'background': background
+                                    },
+                                    background
                                 );
 
                             }
@@ -477,16 +481,6 @@ function getApiRequest(type, data) {
 
 var fileQueue = [];
 
-function getChunkSize() {
-
-    const chunkSizeElement = document.getElementById('chunk-size');
-
-    const chunkSize = parseInt(chunkSizeElement.dataset.chunkSize);
-
-
-    return chunkSize;
-
-}
 async function fileHandler(fileUploads) {
 
     const chunkSize = getChunkSize();
@@ -557,6 +551,16 @@ async function fileHandler(fileUploads) {
         }
 
     }
+
+}
+function getChunkSize() {
+
+    const chunkSizeElement = document.getElementById('chunk-size');
+
+    const chunkSize = parseInt(chunkSizeElement.dataset.chunkSize);
+
+
+    return chunkSize;
 
 }
 async function chunkHandler(chunkFormData, retries = 3) {
@@ -636,7 +640,7 @@ async function chunkHandler(chunkFormData, retries = 3) {
 }
 
 
-function updateStatus(updateType, status, info) {
+function updateStatus(updateType, status, info, background=false) {
 
     if (updateType == 'api') {
 
@@ -691,12 +695,16 @@ function updateStatus(updateType, status, info) {
     }
 
 
+    let noDisplay = background;
+
+
     const statusElement = document.getElementById('status');
 
     statusElement.innerHTML = '';
 
 
     let currentHandlers = [];
+    let currentBackgroundDisplays = [];
 
     for (const queueItem of apiQueue) {
 
@@ -705,6 +713,27 @@ function updateStatus(updateType, status, info) {
             currentHandlers.push(queueItem.handler);
 
             statusElement.insertAdjacentHTML('beforeend', `<span class="text">Waiting for ${queueItem.text}.</span>`);
+
+            if (Object.keys(queueItem).includes('background')) {
+
+                currentBackgroundDisplays.push(queueItem.background);
+
+            } else {
+
+                currentBackgroundDisplays.push(false);
+
+            }
+
+        }
+
+    }
+
+    for (const currentBackgroundDisplay of currentBackgroundDisplays) {
+
+        if (currentBackgroundDisplay == false) {
+
+            noDisplay = false;
+            break;
 
         }
 
@@ -727,21 +756,25 @@ function updateStatus(updateType, status, info) {
     }
 
 
-    if (currentHandlers.length == 0 && currentFiles.length == 0) {
+    if (noDisplay == false) {
 
-        statusElement.classList.remove('active');
+        if (currentHandlers.length == 0 && currentFiles.length == 0) {
 
-        loaderHide();
+            statusElement.classList.remove('active');
 
-    } else {
+            loaderHide();
 
-        if (!statusElement.classList.contains('active')) {
+        } else {
 
-            statusElement.classList.add('active');
+            if (!statusElement.classList.contains('active')) {
+
+                statusElement.classList.add('active');
+
+            }
+
+            loaderShow();
 
         }
-
-        loaderShow();
 
     }
 
