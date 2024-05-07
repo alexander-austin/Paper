@@ -1161,49 +1161,64 @@ class Backend:
 
         try:
 
-            imageSettings = None
+            imageSettings = self.db.settings.get('image')
 
-            if isinstance(imageInfo, dict):
+            if imageSettings['paused'] == True:
 
-                if 'action' in imageInfo.keys():
+                statusMessage = {'status': 'ok'}
+                statusCode = 200
 
-                    if imageInfo['action'] == 'preset':
+            else:
 
-                        imageSettings = self.db.settings.get('image')
+                if isinstance(imageInfo, dict):
 
-                    elif imageInfo['action'] == 'generate':
+                    if 'action' in imageInfo.keys():
 
-                        self.db.settings.generateMediaQueue(
-                            currentId=None
-                        )
+                        if imageInfo['action'] == 'preset':
 
-                        imageSettings = self.db.settings.get('image')
+                            imageSettings = self.db.settings.get('image')
 
-                    elif imageInfo['action'] == 'next':
+                        elif imageInfo['action'] == 'generate':
+
+                            self.db.settings.generateMediaQueue(
+                                currentId=None
+                            )
+
+                            imageSettings = self.db.settings.get('image')
+
+                        elif imageInfo['action'] == 'next':
+
+                            self.db.settings.rotateMediaQueue(
+                                forward=True
+                            )
+
+                            imageSettings = self.db.settings.get('image')
+
+                        elif imageInfo['action'] == 'previous':
+
+                            self.db.settings.rotateMediaQueue(
+                                forward=False
+                            )
+
+                            imageSettings = self.db.settings.get('image')
+
+                        elif imageInfo['action'] == 'set':
+
+                            if 'id' in imageInfo.keys():
+
+                                self.db.settings.generateMediaQueue(
+                                    currentId=imageInfo['id']
+                                )
+
+                                imageSettings = self.db.settings.get('image')
+
+                    else:
 
                         self.db.settings.rotateMediaQueue(
                             forward=True
                         )
 
                         imageSettings = self.db.settings.get('image')
-
-                    elif imageInfo['action'] == 'previous':
-
-                        self.db.settings.rotateMediaQueue(
-                            forward=False
-                        )
-
-                        imageSettings = self.db.settings.get('image')
-
-                    elif imageInfo['action'] == 'set':
-
-                        if 'id' in imageInfo.keys():
-
-                            self.db.settings.generateMediaQueue(
-                                currentId=imageInfo['id']
-                            )
-
-                            imageSettings = self.db.settings.get('image')
 
                 else:
 
@@ -1213,87 +1228,94 @@ class Backend:
 
                     imageSettings = self.db.settings.get('image')
 
-            else:
 
-                self.db.settings.rotateMediaQueue(
-                    forward=True
-                )
+                if isinstance(imageSettings, dict):
 
-                imageSettings = self.db.settings.get('image')
+                    if not imageSettings['current'] == -1:
+
+                        dbQuantizations = self.db.get(
+                            'quantization',
+                            match={
+                                'image_id': imageSettings['current']
+                            }
+                        )
+
+                        if isinstance(dbQuantizations, list):
+
+                            quantizationPath = None
+
+                            profileString = '_%(orientation)s_%(sizing)s' % {
+                                'orientation': imageSettings['orientation'],
+                                'sizing': 'cover' if imageSettings['sizing']['type'] == 'cover' else '_'.join(
+                                    [
+                                        imageSettings['sizing']['type'],
+                                        imageSettings['sizing']['fill']
+                                    ]
+                                )
+                            }
+
+                            for dbQuantization in dbQuantizations:
+
+                                if profileString in dbQuantization.working['path']:
+
+                                    quantizationPath = dbQuantization.working['path']
+
+                                    break
+
+                            del profileString
 
 
-            if isinstance(imageSettings, dict):
+                            if not quantizationPath is None:
 
-                if not imageSettings['current'] == -1:
+                                quantizedImage = Image.open(
+                                    dbQuantization.working['path']
+                                )
 
-                    dbQuantizations = self.db.get(
-                        'quantization',
-                        match={
-                            'image_id': imageSettings['current']
-                        }
-                    )
+                                imageRaw = bytearray(
+                                    quantizedImage.tobytes('raw')
+                                )
 
-                    if isinstance(dbQuantizations, list):
-
-                        quantizationPath = None
-
-                        profileString = '_%(orientation)s_%(sizing)s' % {
-                            'orientation': imageSettings['orientation'],
-                            'sizing': 'cover' if imageSettings['sizing']['type'] == 'cover' else '_'.join(
-                                [
-                                    imageSettings['sizing']['type'],
-                                    imageSettings['sizing']['fill']
+                                imageBuffered = [
+                                    (imageRaw[int(r * 2)] << 4) + imageRaw[int((r * 2) + 1)]
+                                    for r in range(int((imageSettings['size'][0] * imageSettings['size'][1]) / 2))
                                 ]
-                            )
-                        }
-
-                        for dbQuantization in dbQuantizations:
-
-                            if profileString in dbQuantization.working['path']:
-
-                                quantizationPath = dbQuantization.working['path']
-
-                                break
-
-                        del profileString
 
 
-                        if not quantizationPath is None:
-
-                            quantizedImage = Image.open(
-                                dbQuantization.working['path']
-                            )
-
-                            imageRaw = bytearray(
-                                quantizedImage.tobytes('raw')
-                            )
-
-                            imageBuffered = [
-                                (imageRaw[int(r * 2)] << 4) + imageRaw[int((r * 2) + 1)]
-                                for r in range(int((imageSettings['size'][0] * imageSettings['size'][1]) / 2))
-                            ]
+                                self.display.displayBytes(
+                                    imageBuffered
+                                )
 
 
-                            self.display.displayBytes(
-                                imageBuffered
-                            )
+                                del quantizedImage
+                                del imageRaw
+                                del imageBuffered
 
 
-                            del quantizedImage
-                            del imageRaw
-                            del imageBuffered
+                                self.setTaskData(
+                                    {
+                                        'name': 'Rotate Images',
+                                        'last': (datetime.datetime.now() - datetime.datetime.fromtimestamp(0)).total_seconds(),
+                                        'status': 'ok'
+                                    }
+                                )
 
+                                statusMessage = {'status': 'ok'}
+                                statusCode = 200
 
-                            self.setTaskData(
-                                {
-                                    'name': 'Rotate Images',
-                                    'last': (datetime.datetime.now() - datetime.datetime.fromtimestamp(0)).total_seconds(),
-                                    'status': 'ok'
-                                }
-                            )
+                            else:
 
-                            statusMessage = {'status': 'ok'}
-                            statusCode = 200
+                                self.db.log(
+                                    self.logFileKey,
+                                    '.'.join(
+                                        [
+                                            str(self.__class__.__name__),
+                                            str(sys._getframe().f_code.co_name)
+                                        ]
+                                    ),
+                                    'Missing quantizations.'
+                                )
+
+                            del quantizationPath
 
                         else:
 
@@ -1308,7 +1330,7 @@ class Backend:
                                 'Missing quantizations.'
                             )
 
-                        del quantizationPath
+                        del dbQuantizations
 
                     else:
 
@@ -1320,10 +1342,8 @@ class Backend:
                                     str(sys._getframe().f_code.co_name)
                                 ]
                             ),
-                            'Missing quantizations.'
+                            'Empty queue.'
                         )
-
-                    del dbQuantizations
 
                 else:
 
@@ -1335,21 +1355,8 @@ class Backend:
                                 str(sys._getframe().f_code.co_name)
                             ]
                         ),
-                        'Empty queue.'
+                        'Invalid action.'
                     )
-
-            else:
-
-                self.db.log(
-                    self.logFileKey,
-                    '.'.join(
-                        [
-                            str(self.__class__.__name__),
-                            str(sys._getframe().f_code.co_name)
-                        ]
-                    ),
-                    'Invalid action.'
-                )
 
             del imageSettings
 
@@ -2226,19 +2233,14 @@ class Backend:
 
                 if path == 'image':
 
-                    previousSettings = self.getSettingsData('image')
+                    previousSettings = self.getSettingsData('image')['image_settings']
 
-                    self.db.settings.set(
-                        'image',
-                        settingsData
-                    )
+                    if 'paused' in settingsData.keys():
 
-                    if any(
-                        [
-                            not previousSettings[key] == settingsData[key]
-                            for key in ['current', 'queue', 'filters', 'orientation']
-                        ]
-                    ) == True:
+                        settingsData['paused'] = not previousSettings['paused'] # auto toggle
+
+
+                    if 'filters' in settingsData.keys():
 
                         if not previousSettings['filters'] == settingsData['filters']:
 
@@ -2248,7 +2250,21 @@ class Backend:
                                 }
                             )
 
-                        if (not previousSettings['current'] == settingsData['current']) or (not previousSettings['queue'] == settingsData['queue']):
+                    for key in ['current', 'queue', 'orientation']:
+
+                        if key in settingsData.keys() and (not settingsData[key] == previousSettings[key]):
+
+                            self.displayImage(
+                                {
+                                    'action': 'next'
+                                }
+                            )
+
+                            break
+
+                    if 'sizing' in settingsData.keys():
+
+                        if not previousSettings['sizing']['type'] == settingsData['sizing']['type']:
 
                             self.displayImage(
                                 {
@@ -2258,11 +2274,30 @@ class Backend:
 
                         else:
 
-                            self.displayImage(
-                                {
-                                    'action': 'next'
-                                }
-                            )
+                            if 'fill' in settingsData['sizing'].keys():
+
+                                if not previousSettings['sizing']['fill'] == settingsData['sizing']['fill']:
+
+                                    self.displayImage(
+                                        {
+                                            'action': 'next'
+                                        }
+                                    )
+
+                        if not 'fill' in settingsData['sizing'].keys():
+
+                            settingsData['sizing']['fill'] = None
+
+                    for key in previousSettings.keys():
+
+                        if not key in settingsData.keys():
+
+                            settingsData[key] = previousSettings[key]
+
+                    self.db.settings.set(
+                        'image',
+                        settingsData
+                    )
 
                 elif path == 'password':
 
@@ -2406,17 +2441,13 @@ class Backend:
                     for key in self.db.paths.keys()
                     if self.db.paths[key]['type'] == 'log'
                 ],
-                'files': [
-                    self.db.paths[key]['path']
-                    for key in self.db.paths.keys()
-                    if self.db.paths[key]['type'] == 'log'
-                ],
                 'logs': []
             }
         }
 
         try:
-            
+
+            # Default filter
             logFilter = {
                 'paging': {
                     'size': 50,
@@ -2430,6 +2461,7 @@ class Backend:
                 ]
             }
 
+            # API-defined filter
             if isinstance(filters, dict):
 
                 if 'paging' in filters.keys():
@@ -2446,12 +2478,6 @@ class Backend:
                 if 'keys' in filters.keys():
 
                     logFilter['keys'] = filters['keys']
-                    logData['log_data']['keys'] = filters['keys']
-                    logData['log_data']['files'] = [
-                        self.db.paths[key]['path']
-                        for key in self.db.paths.keys()
-                        if self.db.paths[key]['type'] == 'log' and key in filters['keys']
-                    ]
 
 
             if isinstance(logFilter['keys'], list):
@@ -2468,44 +2494,27 @@ class Backend:
 
                             logTemp = f.readlines()
 
-                        if logFilter['sort'] == 'ASC':
-
-                            logTemp = list(reversed(sorted(logTemp)))
-
-                        else:
-
-                            logTemp = list(sorted(logTemp))
-
-                        logTemp = logTemp[
-                            (
-                                logFilter['paging']['size'] * logFilter['paging']['page']
-                            ):(
-                                logFilter['paging']['size'] * (logFilter['paging']['page'] + 1)
-                            )
-                        ]
-
                         for log in logTemp:
 
                             logOutputs.append(log)
 
 
-                if len(logFilter['keys']) > 1:
+                if logFilter['sort'] == 'ASC':
 
-                    if logFilter['sort'] == 'ASC':
+                    logOutputs = list(reversed(sorted(logOutputs)))
 
-                        logOutputs = list(reversed(sorted(logOutputs)))
+                else:
 
-                    else:
+                    logOutputs = list(sorted(logOutputs))
 
-                        logOutputs = list(sorted(logOutputs))
 
-                    logOutputs = logOutputs[
-                        (
-                            logFilter['paging']['size'] * logFilter['paging']['page']
-                        ):(
-                            logFilter['paging']['size'] * (logFilter['paging']['page'] + 1)
-                        )
-                    ]
+                logOutputs = logOutputs[
+                    (
+                        logFilter['paging']['size'] * logFilter['paging']['page']
+                    ):(
+                        logFilter['paging']['size'] * (logFilter['paging']['page'] + 1)
+                    )
+                ]
 
 
                 logJson = []
@@ -2514,13 +2523,13 @@ class Backend:
 
                     if '|' in logOutput:
 
-                        if len(logOutput.rstrip('\n').split('|', 1)[-1].split(':')) > 1:
+                        if len(logOutput.replace('\r', '').rstrip('\n').split('|', 1)[-1].split(':')) > 1:
 
                             logJson.append(
                                 {
-                                    'date': logOutput.rstrip('\n').split('|', 1)[0].strip(),
-                                    'source': logOutput.rstrip('\n').split('|', 1)[-1].split(':', 1)[0].strip(),
-                                    'entry': logOutput.rstrip('\n').split('|', 1)[-1].split(':', 1)[-1].strip()
+                                    'date': logOutput.replace('\r', '').rstrip('\n').split('|', 1)[0].strip(),
+                                    'source': logOutput.replace('\r', '').rstrip('\n').split('|', 1)[-1].split(':', 1)[0].strip(),
+                                    'entry': logOutput.replace('\r', '').rstrip('\n').split('|', 1)[-1].split(':', 1)[-1].strip()
                                 }
                             )
 
