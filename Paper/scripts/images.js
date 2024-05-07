@@ -52,11 +52,18 @@ window.onload = function () {
     }
 
 
+    
     apiHandler(
         'image_data',
         null
     );
 
+    document.addEventListener(
+        'settings_get_image',
+        imageSettingsRefresh.received_handler,
+        false
+    );
+    imageSettingsRefresh.poller_id = setInterval(imageSettingsRefresh.poller, imageSettingsRefresh.interval);
     apiHandler(
         'settings_get_image',
         null
@@ -68,6 +75,29 @@ window.onload = function () {
     );
 
 }
+
+var imageSettingsRefresh = {
+    'interval': 5000,
+    'last': 0,
+    'received_handler': function () {
+
+        imageSettingsRefresh.last = Date.now();
+
+        clearInterval(imageSettingsRefresh.poller_id);
+        imageSettingsRefresh.poller_id = setInterval(imageSettingsRefresh.poller, imageSettingsRefresh.interval);
+
+    },
+    'poller_id': -1,
+    'poller': function () {
+
+        apiHandler(
+            'settings_get_image',
+            null,
+            true
+        );
+
+    }
+};
 
 
 function initImageFilterAndSort() {
@@ -308,9 +338,13 @@ function initImageSizingAndOrientation() {
         'click',
         function () {
 
-            const imageSizingAndOrientationModal = document.getElementById('image-sizing-and-orientation-modal');
+            if (Object.keys(apiData).includes('image_settings')) {
 
-            imageSizingAndOrientationModal.classList.add('active');
+                const imageSizingAndOrientationModal = document.getElementById('image-sizing-and-orientation-modal');
+
+                imageSizingAndOrientationModal.classList.add('active');
+
+            }
 
         },
         false
@@ -318,7 +352,6 @@ function initImageSizingAndOrientation() {
 
 
     const imageSizingAndOrientationModalSizingOptionsContainer = document.getElementById('image-sizing-and-orientation-modal-sizing-options-container');
-
     const imageSizingAndOrientationModalSizingOptions = imageSizingAndOrientationModalSizingOptionsContainer.querySelectorAll('.image-sizing-and-orientation-modal-sizing-option');
 
     for (const imageSizingAndOrientationModalSizingOption of imageSizingAndOrientationModalSizingOptions) {
@@ -327,45 +360,37 @@ function initImageSizingAndOrientation() {
             'click',
             function (e) {
 
-                if (Object.keys(apiData).includes('image_settings')) {
+                let sizingType = apiData.image_settings.sizing.type;
+                let sizingFill = apiData.image_settings.sizing.fill;
 
-                    const dataOrientation = e.target.dataset.orientation;
-                    const dataSizing = e.target.dataset.sizing;
-
-                    apiData.image_settings.orientation = dataOrientation;
-
-                    if (dataSizing == 'fit-blur') {
-
-                        apiData.image_settings.sizing = {
-                            'type': 'fit',
-                            'fill': 'blur'
-                        };
-
-                    } else if (dataSizing == 'fit-blank') {
-
-                        apiData.image_settings.sizing = {
-                            'type': 'fit',
-                            'fill': 'blank'
-                        };
-
-                    } else if (dataSizing == 'cover') {
-
-                        apiData.image_settings.sizing = {
-                            'type': 'cover'
-                        };
-
-                    }
-
-                    apiHandler(
-                        'settings_set_image',
-                        apiData.image_settings
-                    );
-
-                    const imageSizingAndOrientationModal = document.getElementById('image-sizing-and-orientation-modal');
-
-                    imageSizingAndOrientationModal.classList.remove('active');
-
+                if (e.target.classList.contains('image-sizing-and-orientation-modal-sizing-option')) {
+                    sizingType = e.target.dataset.sizingType;
+                    sizingFill = e.target.dataset.sizingFill;
+                } else if (e.target.nodeName == 'SPAN') {
+                    sizingType = e.target.parentElement.dataset.sizingType;
+                    sizingFill = e.target.parentElement.dataset.sizingFill;
+                } else if (e.target.classList.contains('sizing-container')) {
+                    sizingType = e.target.parentElement.dataset.sizingType;
+                    sizingFill = e.target.parentElement.dataset.sizingFill;
+                } else if (e.target.classList.contains('sizing-container-inner')) {
+                    sizingType = e.target.parentElement.parentElement.dataset.sizingType;
+                    sizingFill = e.target.parentElement.parentElement.dataset.sizingFill;
+                } else {
+                    sizingType = e.target.parentElement.parentElement.parentElement.dataset.sizingType;
+                    sizingFill = e.target.parentElement.parentElement.parentElement.dataset.sizingFill;
                 }
+
+                closeModals();
+
+                apiHandler(
+                    'settings_set_image',
+                    {
+                        'sizing': {
+                            'type': sizingType,
+                            'fill': sizingFill
+                        }
+                    }
+                );
 
             },
             true
@@ -391,77 +416,107 @@ function initImageSizingAndOrientation() {
         'image_settings',
         function () {
 
-            const sizingAndOrientationClasses = [
-                'frame-landscape',
-                'frame-portrait',
-                'sizing-fit-blur',
-                'sizing-fit-blank',
-                'sizing-cover'
-            ];
+            clearEventListenersById('image-sizing-and-orientation-modal-orientation-container');
 
-            const displaySizingAndOrientationViewLandscape = document.getElementById('display-sizing-and-orientation-view-landscape');
-            const displaySizingAndOrientationViewPortrait = document.getElementById('display-sizing-and-orientation-view-portrait');
+            const imageSizingAndOrientationModalOrientationContainer = document.getElementById('image-sizing-and-orientation-modal-orientation-container');
+            imageSizingAndOrientationModalOrientationContainer.classList.remove('manual');
+            imageSizingAndOrientationModalOrientationContainer.classList.remove('auto');
 
-            for (const sizingAndOrientationClass of sizingAndOrientationClasses) {
+            const imageSizingAndOrientationModalOrientationText = document.getElementById('image-sizing-and-orientation-modal-orientation-text');
 
-                displaySizingAndOrientationViewLandscape.classList.remove(sizingAndOrientationClass);
-                displaySizingAndOrientationViewPortrait.classList.remove(sizingAndOrientationClass);
+            if (apiData.image_settings.orientation_control == 'manual') {
 
-            }
+                imageSizingAndOrientationModalOrientationContainer.classList.add('manual');
 
-            if (apiData.image_settings.orientation == 'landscape') {
-
-                displaySizingAndOrientationViewLandscape.classList.add('frame-landscape');
-                displaySizingAndOrientationViewPortrait.classList.add('frame-landscape');
-
-            } else {
-
-                displaySizingAndOrientationViewLandscape.classList.add('frame-portrait');
-                displaySizingAndOrientationViewPortrait.classList.add('frame-portrait');
-
-            }
-
-            let dataSizing = null;
-
-            if (apiData.image_settings.sizing.type == 'fit') {
-
-                if (apiData.image_settings.sizing.fill == 'blur') {
-
-                    dataSizing = 'fit-blur';
-                    displaySizingAndOrientationViewLandscape.classList.add('sizing-fit-blur');
-                    displaySizingAndOrientationViewPortrait.classList.add('sizing-fit-blur');
-
+                if (apiData.image_settings.orientation == 'landscape') {
+                    imageSizingAndOrientationModalOrientationText.innerText = 'Landscape (manual)';
                 } else {
-
-                    dataSizing = 'fit-blank';
-                    displaySizingAndOrientationViewLandscape.classList.add('sizing-fit-blank');
-                    displaySizingAndOrientationViewPortrait.classList.add('sizing-fit-blank');
-
+                    imageSizingAndOrientationModalOrientationText.innerText = 'Portrait (manual)';
                 }
 
+                imageSizingAndOrientationModalOrientationContainer.addEventListener(
+                    'click',
+                    function () {
+
+                        let orientationSettings = {
+                            'orientation': 'landscape'
+                        };
+
+                        if (apiData.image_settings.orientation == 'landscape') {
+                            orientationSettings.orientation = 'portrait';
+                        }
+
+                        closeModals();
+
+                        apiHandler(
+                            'settings_set_image',
+                            orientationSettings
+                        );
+
+                    },
+                    false
+                );
+
             } else {
 
-                dataSizing = 'cover';
-                displaySizingAndOrientationViewLandscape.classList.add('sizing-cover');
-                displaySizingAndOrientationViewPortrait.classList.add('sizing-cover');
+                imageSizingAndOrientationModalOrientationContainer.classList.add('auto');
+
+                if (apiData.image_settings.orientation == 'landscape') {
+                    imageSizingAndOrientationModalOrientationText.innerText = 'Landscape (auto)';
+                } else {
+                    imageSizingAndOrientationModalOrientationText.innerText = 'Portrait (auto)';
+                }
 
             }
 
 
             const imageSizingAndOrientationModalSizingOptionsContainer = document.getElementById('image-sizing-and-orientation-modal-sizing-options-container');
-
             const imageSizingAndOrientationModalSizingOptions = imageSizingAndOrientationModalSizingOptionsContainer.querySelectorAll('.image-sizing-and-orientation-modal-sizing-option');
 
             for (const imageSizingAndOrientationModalSizingOption of imageSizingAndOrientationModalSizingOptions) {
 
                 imageSizingAndOrientationModalSizingOption.classList.remove('active');
 
-                if (imageSizingAndOrientationModalSizingOption.dataset.orientation == apiData.image_settings.orientation) {
-
-                    if (imageSizingAndOrientationModalSizingOption.dataset.sizing == dataSizing) {
-
+                if (apiData.image_settings.sizing['type'] == imageSizingAndOrientationModalSizingOption.dataset.sizingType) {
+                    if (apiData.image_settings.sizing['type'] == 'fit') {
+                        if (apiData.image_settings.sizing['fill'] == imageSizingAndOrientationModalSizingOption.dataset.sizingFill) {
+                            imageSizingAndOrientationModalSizingOption.classList.add('active');
+                        }
+                    } else {
                         imageSizingAndOrientationModalSizingOption.classList.add('active');
+                    }
+                }
 
+            }
+
+
+            const sizingContainers = document.getElementsByClassName('sizing-container');
+
+            for (const sizingContainer of sizingContainers) {
+
+                sizingContainer.classList.remove('frame-landscape');
+                sizingContainer.classList.remove('frame-portrait');
+
+                if (apiData.image_settings.orientation == 'landscape') {
+                    sizingContainer.classList.add('frame-landscape');
+                } else {
+                    sizingContainer.classList.add('frame-portrait');
+                }
+
+                if (!sizingContainer.classList.contains('static-sizing')) {
+
+                    sizingContainer.classList.remove('sizing-fit-blur');
+                    sizingContainer.classList.remove('sizing-fit-blank');
+                    sizingContainer.classList.remove('sizing-cover');
+
+                    if (apiData.image_settings.sizing['type'] == 'fit') {
+                        if (apiData.image_settings.sizing['fill'] == 'blur') {
+                            sizingContainer.classList.add('sizing-fit-blur');
+                        } else {
+                            sizingContainer.classList.add('sizing-fit-blank');
+                        }
+                    } else if (apiData.image_settings.sizing['type'] == 'cover') {
+                        sizingContainer.classList.add('sizing-cover');
                     }
 
                 }
