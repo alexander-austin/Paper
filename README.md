@@ -2,7 +2,9 @@
 
 ![Image of working e-Paper display and connected Raspberry Pi](/Paper/static/android-chrome-192x192.png?raw=true)
 
-Paper is a Raspberry Pi powered 7-color e-Paper display with a web interface and API. One side goal was getting practice with vanilla JS/CSS.
+Paper is a Raspberry Pi powered 7-color e-Paper picture frame display with a web interface and API.
+
+One side goal was getting practice with vanilla JS/CSS.
 
 Scissor.py is a background worker that uses the API to run periodic maintenance tasks.
 
@@ -35,6 +37,8 @@ Micro SD card (sufficient for OS, software, and image storage).
 
 ### Hardware & OS Install
 
+![Screenshot of user page.](/docs/wiring.png?raw=true)
+
 Wire the display to the Raspberry Pi GPIO per [manufacturer’s specifications](https://www.waveshare.com/wiki/7.3inch_e-Paper_HAT_(F)_Manual#Working_With_Raspberry_Pi).
 
 Install [Raspberry Pi OS](https://www.raspberrypi.com/software/) (Raspbian) and configure networking. It’s likely other compatible distros/operating systems will work as well, but that’s at your own risk and discretion.
@@ -43,7 +47,7 @@ Transfer project files to the Raspberry Pi. There are a number of ways to do thi
 
 ### Open TCP Ports & Enable SPI
 
-These enable http connectivity and SPI communication via GPIO. Enable a firewall or your Raspberry Pi will be reachable via the internet. There are far more secure ways of enabling connectivity, please use with caution.
+These enable http connectivity and SPI communication via GPIO. The last line is for the optional MPU 6050 gyro/accelerometer. Enable a firewall or your Raspberry Pi will be reachable via the internet. There are far more secure ways of enabling connectivity, please use with caution.
 
 ```
 sudo apt-get install authbind
@@ -53,6 +57,7 @@ sudo touch /etc/authbind/byport/5000
 sudo chmod 777 /etc/authbind/byport/5000
 
 sudo sed -i 's/#dtparam=spi=on/dtparam=spi=on/g' /boot/config.txt
+sudo raspi-config nonint do_i2c 0
 ```
 
 ## Software
@@ -72,6 +77,8 @@ The [cryptography package](https://github.com/pyca/cryptography/blob/main/docs/i
 [Requests](https://github.com/psf/requests) is an http client used by [Scissor.py](/Scissor.py) which runs in the background and uses the API to run period tasks such as displaying the next image in queue and rotating log files, etc. Redis and celery would have been an obvious replacement that enabled some other cool features, but this seemed like a more minimal install and memory efficient route.
 
 [RPi.GPIO](https://pypi.org/project/RPi.GPIO/) and [spidev](https://github.com/doceme/py-spidev) enable GPIO SPI communication with the e-Paper display.
+
+[smbus2](https://github.com/kplindegaard/smbus2) enables serial communication with (optional) MPU 6050 gyro/accelerometer.
 
 ```
 sudo apt update && sudo apt upgrade -y
@@ -465,6 +472,8 @@ Example Response
 		"queue": [],
 		"filters": [],
 		"orientation": "landscape",
+        "orientation_control": "auto",
+        "orientation_auto_control_available": true,
 		"size": [800, 480],
 		"sizing": {
 			"type": "fit",
@@ -491,7 +500,7 @@ Example Response
 Permissions Required
 | Logged In | Media | Settings | Admin | API |
 | :-: | :-: | :-: | :-: | :-: |
-| :negative_squared_cross_mark: | :negative_squared_cross_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| :negative_squared_cross_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 Data
 ```
