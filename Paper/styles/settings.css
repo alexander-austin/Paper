@@ -111,9 +111,12 @@ body::-webkit-scrollbar-thumb {
     margin-left: 1.5rem;
 }
 
+#log-table-body > tr > td {
+    text-align: left;
+}
+
 
 @media only screen and (max-width: 600px) {
-
     .password-settings-option {
         width: calc(100% - 1.0rem);
     }
