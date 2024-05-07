@@ -57,6 +57,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 /* Images Menu */
 #images-menu > .button {
     display: inline-block;
@@ -75,14 +76,11 @@
 #display-filters > div {
     background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 512 512" version="1.1" id="filter_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><path id="inner" style="fill:rgb(255, 255, 255);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:fill markers stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" d="M 44,32 A 12.0013,12.0013 0 0 0 33.4922,49.79688 L 160,279.08984 V 468 a 12.0013,12.0013 0 0 0 12,12 h 168.0019 a 12.0013,12.0013 0 0 0 12,-12 V 279.08984 L 478.5078,49.79688 A 12.0013,12.0013 0 0 0 468,32 Z M 64.3262,56 H 447.6738 L 329.4941,270.20313 A 12.0013,12.0013 0 0 0 328.0019,276 V 456 H 184 V 276 a 12.0013,12.0013 0 0 0 -1.4922,-5.79687 z" /></svg>');
 }
-#display-orientation > div {
-    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 512 512" version="1.1" id="orientation_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><rect id="inner" style="fill:none;stroke:rgb(255, 255, 255);stroke-width:31.9999;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke" width="416.00012" height="288.00012" x="47.999939" y="111.99994" /></svg>');
-    transform: rotate(0);
-    transform-origin: center;
-    transition: transform 0.3s ease-out;
+#display-sizing-and-orientation > .sizing-container {
+    padding: 0;
 }
-#display-orientation.portrait > div {
-    transform: rotate(90deg);
+#display-sizing-and-orientation > .sizing-container > .sizing-container-inner {
+    background-color: transparent;
 }
 
 #display-add > div {
@@ -174,6 +172,17 @@
 }
 
 /* Image Orientation & Sizing */
+#image-sizing-and-orientation-modal-orientation-container {
+    opacity: 0.5;
+}
+#image-sizing-and-orientation-modal-orientation-container.manual {
+    opacity: 1.0;
+    cursor: pointer;
+}
+#image-sizing-and-orientation-modal-orientation-container > span {
+    display: block;
+    margin-bottom: 0.5rem;
+}
 .image-sizing-and-orientation-modal-sizing-option {
     width: 50%;
     margin: 0.5rem auto;
@@ -187,98 +196,90 @@
     border: solid var(--foreground-color) 0.1rem;
 }
 .image-sizing-and-orientation-modal-sizing-option > span {
+    display: block;
     margin-bottom: 0.5rem;
-}
-.image-sizing-and-orientation-modal-sizing-option-previews {
-    margin: 0.5rem auto;
-    padding: 0.5rem;
-    width: fit-content;
-    border-radius: 0.25rem;
-    background-color: var(--element-background);
 }
 
 .sizing-container {
     display: inline-block;
-    position: relative;
-    width: 4.0rem;
-    height: 4.0rem;
+    width: 5.0rem;
+    height: 5.0rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    overflow: hidden;
 }
-.sizing-container > div {
+.sizing-container-inner {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--element-background);
+}
+.sizing-container-inner > div {
     display: block;
     position: absolute;
     box-sizing: border-box;
+    transition: all ease-out 0.3s;
 }
-.sizing-frame {
+.sizing-container-foreground {
+    background: var(--background-gradient);
+}
+.sizing-container-background {
+    background-color: transparent;
+}
+.sizing-container.sizing-fit-blur > .sizing-container-inner > .sizing-container-background {
+    background: var(--background-gradient);
+    opacity: 0.5;
+}
+.sizing-container-frame {
+    background-color: transparent;
     border: solid var(--foreground-color) 0.1rem;
-    border-radius: 0.1rem;
 }
-.sizing-container.frame-landscape > .sizing-frame {
-    top: 25%;
+.sizing-container.frame-landscape > .sizing-container-inner > .sizing-container-background,
+.sizing-container.frame-landscape > .sizing-container-inner > .sizing-container-frame,
+.sizing-container.frame-landscape.sizing-cover > .sizing-container-inner > .sizing-container-foreground {
     left: 0;
+    top: 25%;
     width: 100%;
     height: 50%;
 }
-.sizing-container.frame-portrait > .sizing-frame {
-    top: 0;
-    left: 25%;
-    width: 50%;
-    height: 100%;
-}
-.sizing-foreground {
-    background: var(--background-gradient);
-}
-.sizing-container.frame-landscape.view-landscape > .sizing-foreground {
-    top: 25%;
+.sizing-container.frame-landscape.view-landscape.sizing-fit-blur > .sizing-container-inner > .sizing-container-foreground,
+.sizing-container.frame-landscape.view-landscape.sizing-fit-blank > .sizing-container-inner > .sizing-container-foreground {
     left: 12.5%;
+    top: 25%;
     width: 75%;
     height: 50%;
 }
-.sizing-container.frame-landscape.view-portrait > .sizing-foreground {
-    top: 25%;
+.sizing-container.frame-landscape.view-portrait.sizing-fit-blur > .sizing-container-inner > .sizing-container-foreground,
+.sizing-container.frame-landscape.view-portrait.sizing-fit-blank > .sizing-container-inner > .sizing-container-foreground {
     left: 25%;
+    top: 25%;
     width: 50%;
     height: 50%;
 }
-.sizing-container.frame-portrait.view-portrait > .sizing-foreground {
-    top: 12.5%;
+.sizing-container.frame-portrait > .sizing-container-inner > .sizing-container-background,
+.sizing-container.frame-portrait > .sizing-container-inner > .sizing-container-frame,
+.sizing-container.frame-portrait.sizing-cover > .sizing-container-inner > .sizing-container-foreground {
     left: 25%;
-    width: 50%;
-    height: 75%;
-}
-.sizing-container.frame-portrait.view-landscape > .sizing-foreground {
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
-}
-.sizing-overlay {
-    background-color: var(--element-background);
-}
-.sizing-background {
-    background: var(--background-gradient);
-}
-.sizing-container.frame-landscape > .sizing-overlay,
-.sizing-container.frame-landscape > .sizing-background {
-    top: 25%;
-    left: 0;
-    width: 100%;
-    height: 50%;
-}
-.sizing-container.frame-portrait > .sizing-overlay,
-.sizing-container.frame-portrait > .sizing-background {
     top: 0;
-    left: 25%;
     width: 50%;
     height: 100%;
 }
-.sizing-container.sizing-cover > .sizing-overlay,
-.sizing-container.sizing-cover > .sizing-foreground {
-    opacity: 0.0;
+.sizing-container.frame-portrait.view-landscape.sizing-fit-blur > .sizing-container-inner > .sizing-container-foreground,
+.sizing-container.frame-portrait.view-landscape.sizing-fit-blank > .sizing-container-inner > .sizing-container-foreground {
+    left: 25%;
+    top: 25%;
+    width: 50%;
+    height: 50%;
 }
-.sizing-container.sizing-fit-blank > .sizing-overlay,
-.sizing-container.sizing-fit-blank > .sizing-background {
-    opacity: 0.0;
+.sizing-container.frame-portrait.view-portrait.sizing-fit-blur > .sizing-container-inner > .sizing-container-foreground,
+.sizing-container.frame-portrait.view-portrait.sizing-fit-blank > .sizing-container-inner > .sizing-container-foreground {
+    left: 25%;
+    top: 12.5%;
+    width: 50%;
+    height: 75%;
 }
+
 
 /* Edit Image Modal */
 #edit-image-modal {
