@@ -375,7 +375,7 @@ def apiSettings(subpath):
 
                 if subpath == 'image':
 
-                    if authorization['api'] == True or authorization['settings'] == True:
+                    if authorization['api'] == True or authorization['media'] == True:
 
                         requestData = request.json
 
