@@ -90,155 +90,99 @@ LICENSE file in the root directory of this source tree.
 
     <div class="modal-inner">
 
-        <div class="modal-title text-larger text-upper">Image Sizing and Orientation</div>
+        <div class="modal-title text-larger text-upper">Orientation</div>
+
+        <div id="image-sizing-and-orientation-modal-orientation-container">
+
+            <span id="image-sizing-and-orientation-modal-orientation-text" class="text">Landscape</span>
+
+            <div class="sizing-container frame-landscape view-landscape sizing-fit-blur">
+                <div class="sizing-container-inner">
+                    <div class="sizing-container-background"></div>
+                    <div class="sizing-container-foreground"></div>
+                    <div class="sizing-container-frame"></div>
+                </div>
+            </div>
+            <div class="sizing-container frame-landscape view-portrait sizing-fit-blur">
+                <div class="sizing-container-inner">
+                    <div class="sizing-container-background"></div>
+                    <div class="sizing-container-foreground"></div>
+                    <div class="sizing-container-frame"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="modal-title text-larger text-upper">Sizing</div>
 
         <div id="image-sizing-and-orientation-modal-sizing-options-container">
 
-            <div class="image-sizing-and-orientation-modal-sizing-option active" data-orientation="landscape" data-sizing="fit-blur">
+            <div class="image-sizing-and-orientation-modal-sizing-option" data-sizing-type="fit" data-sizing-fill="blur">
 
-                <span class="text">Landscape > Fit Image > Blur Background</span>
+                <span>Fit - Blur</span>
 
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-landscape view-landscape sizing-fit-blur">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                <div class="sizing-container static-sizing view-landscape sizing-fit-blur">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
-                    <div class="sizing-container frame-landscape view-portrait sizing-fit-blur">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                </div>
+                <div class="sizing-container static-sizing view-portrait sizing-fit-blur">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
                 </div>
 
             </div>
 
-            <div class="image-sizing-and-orientation-modal-sizing-option" data-orientation="portrait" data-sizing="fit-blur">
+            <div class="image-sizing-and-orientation-modal-sizing-option" data-sizing-type="fit" data-sizing-fill="blank">
 
-                <span class="text">Portrait > Fit Image > Blur Background</span>
+                <span>Fit - Blank</span>
 
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-portrait view-landscape sizing-fit-blur">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                <div class="sizing-container static-sizing view-landscape sizing-fit-blank">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
-                    <div class="sizing-container frame-portrait view-portrait sizing-fit-blur">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                </div>
+                <div class="sizing-container static-sizing view-portrait sizing-fit-blank">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
                 </div>
 
             </div>
 
-            <div class="image-sizing-and-orientation-modal-sizing-option" data-orientation="landscape" data-sizing="fit-blank">
+            <div class="image-sizing-and-orientation-modal-sizing-option" data-sizing-type="cover">
 
-                <span class="text">Landscape > Fit Image > Blank Background</span>
+                <span>Cover</span>
 
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-landscape view-landscape sizing-fit-blank">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                <div class="sizing-container static-sizing view-landscape sizing-cover">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
-                    <div class="sizing-container frame-landscape view-portrait sizing-fit-blank">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
                 </div>
-
-            </div>
-
-            <div class="image-sizing-and-orientation-modal-sizing-option" data-orientation="portrait" data-sizing="fit-blank">
-
-                <span class="text">Portrait > Fit Image > Blank Background</span>
-
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-portrait view-landscape sizing-fit-blank">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
+                <div class="sizing-container static-sizing view-portrait sizing-cover">
+                    <div class="sizing-container-inner">
+                        <div class="sizing-container-background"></div>
+                        <div class="sizing-container-foreground"></div>
+                        <div class="sizing-container-frame"></div>
                     </div>
-
-                    <div class="sizing-container frame-portrait view-portrait sizing-fit-blank">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="image-sizing-and-orientation-modal-sizing-option" data-orientation="landscape" data-sizing="cover">
-
-                <span class="text">Landscape > Cover Image</span>
-
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-landscape view-landscape sizing-cover">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
-                    <div class="sizing-container frame-landscape view-portrait sizing-fit-blank">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="image-sizing-and-orientation-modal-sizing-option" data-orientation="portrait" data-sizing="cover">
-
-                <span class="text">Portrait > Cover Image</span>
-
-                <div class="image-sizing-and-orientation-modal-sizing-option-previews">
-
-                    <div class="sizing-container frame-portrait view-landscape sizing-cover">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
-                    <div class="sizing-container frame-portrait view-portrait sizing-cover">
-                        <div class="sizing-background"></div>
-                        <div class="sizing-overlay"></div>
-                        <div class="sizing-foreground"></div>
-                        <div class="sizing-frame"></div>
-                    </div>
-
                 </div>
 
             </div>
 
         </div>
+
 
         <div class="modal-action-buttons">
 
@@ -387,18 +331,19 @@ LICENSE file in the root directory of this source tree.
 
     <div id="display-sizing-and-orientation" class="button landscape">
 
-        <div id="display-sizing-and-orientation-view-landscape" class="sizing-container view-landscape frame-landscape sizing-fit-blur">
-            <div class="sizing-background"></div>
-            <div class="sizing-overlay"></div>
-            <div class="sizing-foreground"></div>
-            <div class="sizing-frame"></div>
+        <div class="sizing-container view-landscape">
+            <div class="sizing-container-inner">
+                <div class="sizing-container-background"></div>
+                <div class="sizing-container-foreground"></div>
+                <div class="sizing-container-frame"></div>
+            </div>
         </div>
-
-        <div id="display-sizing-and-orientation-view-portrait" class="sizing-container view-portrait frame-landscape sizing-fit-blur">
-            <div class="sizing-background"></div>
-            <div class="sizing-overlay"></div>
-            <div class="sizing-foreground"></div>
-            <div class="sizing-frame"></div>
+        <div class="sizing-container view-portrait">
+            <div class="sizing-container-inner">
+                <div class="sizing-container-background"></div>
+                <div class="sizing-container-foreground"></div>
+                <div class="sizing-container-frame"></div>
+            </div>
         </div>
 
     </div>
