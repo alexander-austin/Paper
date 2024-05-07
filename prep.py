@@ -31,8 +31,13 @@ class Prep:
             'template': '[Unit]\nDescription=%(description)s\nAfter=network.target\n\n[Service]\nUser=%(username)s\nWorkingDirectory=%(project_path)s\nEnvironment="PAPER_SERVER_PROTOCOL=%(protocol)s"\nEnvironment="PAPER_SERVER_HOST=%(host)s"\nEnvironment="PAPER_SERVER_PORT=%(port)s"\nEnvironment="PAPER_DB_KEY=%(db_key)s"\nEnvironment="PAPER_DB_SALT=%(db_salt)s"\nExecStart=/usr/bin/python3.12 %(exec)s\nRestart=always\n\n[Install]\nWantedBy=multi-user.target'
         }, {
             'name': 'scissor',
-            'description': 'ePaper Background Worker',
+            'description': 'ePaper Background Task Worker',
             'exec': 'Scissor.py',
+            'template': '[Unit]\nDescription=%(description)s\nAfter=network.target\n\n[Service]\nUser=%(username)s\nWorkingDirectory=%(project_path)s\nEnvironment="PAPER_SERVER_PROTOCOL=%(protocol)s"\nEnvironment="PAPER_SERVER_HOST=%(host)s"\nEnvironment="PAPER_SERVER_PORT=%(port)s"\nExecStart=/usr/bin/python3.12 %(exec)s\nRestart=always\n\n[Install]\nWantedBy=multi-user.target'
+        }, {
+            'name': 'pencil',
+            'description': 'ePaper Background GPIO Worker',
+            'exec': 'Pencil.py',
             'template': '[Unit]\nDescription=%(description)s\nAfter=network.target\n\n[Service]\nUser=%(username)s\nWorkingDirectory=%(project_path)s\nEnvironment="PAPER_SERVER_PROTOCOL=%(protocol)s"\nEnvironment="PAPER_SERVER_HOST=%(host)s"\nEnvironment="PAPER_SERVER_PORT=%(port)s"\nExecStart=/usr/bin/python3.12 %(exec)s\nRestart=always\n\n[Install]\nWantedBy=multi-user.target'
         }
     ]
@@ -192,10 +197,12 @@ class Prep:
                 'sudo systemctl daemon-reload',
                 'sudo systemctl enable paper.service',
                 'sudo systemctl enable scissor.service',
+                'sudo systemctl enable pencil.service',
                 'sudo systemctl enable nginx.service',
                 'sudo systemctl start paper.service',
                 'sudo systemctl start nginx.service',
-                'sudo systemctl start scissor.service'
+                'sudo systemctl start scissor.service',
+                'sudo systemctl start pencil.service'
             ]
         )
 
