@@ -134,10 +134,13 @@ class DB:
                         'length': 8
                     },
                     'image': {
+                        'paused': False,
                         'current': -1,
                         'queue': [],
                         'filters': [],
                         'orientation': 'landscape',
+                        'orientation_control': 'manual',
+                        'orientation_auto_control_available': False,
                         'size': [800, 480],
                         'sizing': {
                             'type': 'fit',
@@ -1932,14 +1935,22 @@ class DB:
                     'data',
                     '.'.join(
                         [
-                            '_'.join(
-                                [
-                                    os.path.dirname(
-                                        os.path.realpath(__file__)
-                                    ).rsplit(os.sep, 1)[-1],
-                                    'Scissor'
-                                ]
-                            ),
+                            'Scissor',
+                            'log'
+                        ]
+                    )
+                )
+            },
+            'pencil_log': {
+                'type': 'log',
+                'path': os.path.join(
+                    os.path.dirname(
+                        os.path.realpath(__file__)
+                    ),
+                    'data',
+                    '.'.join(
+                        [
+                            'Pencil',
                             'log'
                         ]
                     )
@@ -1963,7 +1974,7 @@ class DB:
                         os.path.realpath(__file__)
                     ),
                     'data',
-                    'Scissor.json'
+                    'api_credentials.json'
                 )
             }
         }
@@ -4082,6 +4093,7 @@ class DbImage(DbObjectFile):
         return isAvailable
 class DbQuantization(DbObjectFile): pass
 class DbThumbnail(DbObjectFile): pass
+
 
 class DbCategory(DbObjectStandard): pass
 class DbSubcategory(DbObjectStandard): pass
