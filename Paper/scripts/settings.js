@@ -1035,6 +1035,9 @@ function initInfoSection() {
 }
 function populateInfoSection() {
 
+    const infoTable = document.getElementById('info-table');
+    infoTable.classList.add('hidden');
+
     if (Object.keys(apiData).includes('server_data')) {
 
         if (apiData.server_data.length > 0) {
@@ -1042,18 +1045,30 @@ function populateInfoSection() {
             const infoTableHeader = document.getElementById('info-table-header');
 
             infoTableHeader.innerHTML = '';
-            console.log('here', apiData.server_data);
+
             for (const serverKey of Object.keys(apiData.server_data[0])) {
-                console.log('here 2');
-                let columnName = [];
 
-                for (const keyWord of serverKey.split('_')) {
+                if (serverKey !== 'collected') {
 
-                    columnName.push(keyWord.charAt(0).toUpperCase() + keyWord.slice(1));
+                    if (serverKey == 'collected_date_formatted') {
+
+                        infoTableHeader.insertAdjacentHTML('beforeend', `<th scope="col">Collected</th>`);
+
+                    } else {
+
+                        let columnName = [];
+
+                        for (const keyWord of serverKey.split('_')) {
+
+                            columnName.push(keyWord.charAt(0).toUpperCase() + keyWord.slice(1));
+
+                        }
+
+                        infoTableHeader.insertAdjacentHTML('beforeend', `<th scope="col">${columnName.join(' ')}</th>`);
+
+                    }
 
                 }
-                console.log(`<th scope="col">${columnName.join(' ')}</th>`);
-                infoTableHeader.insertAdjacentHTML('beforeend', `<th scope="col">${columnName.join(' ')}</th>`);
 
             }
 
@@ -1068,7 +1083,43 @@ function populateInfoSection() {
 
                 for (const serverKey of Object.keys(apiData.server_data[0])) {
 
-                    serverRowHtml = serverRowHtml + `<td>${serverData[serverKey]}</td>`;
+                    if (serverKey !== 'collected') {
+
+                        let formattedValue = serverData[serverKey];
+
+                        switch (serverKey) {
+                            case 'cpu_load_fifteen_minute': case 'cpu_load_five_minute': case 'cpu_load_one_minute':
+                                formattedValue = `${Math.round(serverData[serverKey])}%`;
+                                break;
+                            case 'disk_total': case 'disk_used': case 'ram_total': case 'ram_used':
+                                if (serverData[serverKey] < 1000) {
+                                    formattedValue = `${serverData[serverKey].toFixed(1)}K`;
+                                } else if (serverData[serverKey] < 1000000) {
+                                    formattedValue = `${(serverData[serverKey] / 1000).toFixed(1)}M`;
+                                } else {
+                                    formattedValue = `${(serverData[serverKey] / 1000000).toFixed(1)}G`;
+                                }
+                                break;
+                            case 'originals_size': case 'quantizations_size': case 'thumbnails_size':
+                                if (serverData[serverKey] < 1000000) {
+                                    formattedValue = `${(serverData[serverKey] / 1000).toFixed(1)}K`;
+                                } else if (serverData[serverKey] < 1000000000) {
+                                    formattedValue = `${(serverData[serverKey] / 1000000).toFixed(1)}M`;
+                                } else {
+                                    formattedValue = `${(serverData[serverKey] / 1000000000).toFixed(1)}G`;
+                                }
+                                break;
+                            case 'temperature_celcius':
+                                formattedValue = `${Math.round(serverData[serverKey])}C`;
+                                break;
+                            case 'temperature_fahrenheit':
+                                formattedValue = `${Math.round(serverData[serverKey])}F`;
+                                break;
+                        }
+
+                        serverRowHtml = serverRowHtml + `<td>${formattedValue}</td>`;
+
+                    }
 
                 }
 
@@ -1077,6 +1128,9 @@ function populateInfoSection() {
                 infoTableBody.insertAdjacentHTML('beforeend', serverRowHtml);
 
             }
+
+
+            infoTable.classList.remove('hidden');
 
         }
 
@@ -1107,7 +1161,6 @@ function populateLogsSection() {
         const logTableBody = document.getElementById('log-table-body');
 
         logTableBody.innerHTML = '';
-
 
         for (const logData of apiData.log_data.logs) {
 
