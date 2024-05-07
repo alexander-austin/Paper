@@ -8,6 +8,8 @@ One side goal was getting practice with vanilla JS/CSS.
 
 Scissor.py is a background worker that uses the API to run periodic maintenance tasks.
 
+Pencil.py is a background worker that polls GPIO, including optional MPU 6050 for automatic orientation control.
+
 ![Image of working e-Paper display and connected Raspberry Pi](/docs/display.jpg?raw=true)
 
 ![Screenshot of homepage and image gallery.](/docs/gallery.jpg?raw=true)
