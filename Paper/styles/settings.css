@@ -37,7 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 .settings-section.active > .settings-section-contents {
     padding: 0;
-    max-height: 100.0rem;
+    max-height: 1000.0rem;
 }
 .settings-section-contents > .data-table {
     display: none;
