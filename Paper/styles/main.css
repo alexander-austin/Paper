@@ -2191,18 +2191,21 @@ tbody > tr > td {
 .dropdown-with-text.active > .dropdown-with-text-options {
     max-height: 30.0rem;
 }
-
-.revert-button {
-    padding: 0.5rem;
-    width: 1.0rem;
-    height: 1.0rem;
-    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.0rem" height="1.0rem" viewBox="0 0 512 512" version="1.1" id="revert_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><path id="inner" style="fill:rgb(255, 255, 255);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" d="m 246.56101,50.504159 a 24.028724,24.028724 0 0 0 -0.26456,0.002 24.028724,24.028724 0 0 0 -16.63295,7.03516 l -50.57613,50.578111 a 24.028724,24.028724 0 0 0 -7.43773,17.37891 24.028724,24.028724 0 0 0 5.50413,15.30078 24.028724,24.028724 0 0 0 0.26456,0.31634 24.028724,24.028724 0 0 0 0.26835,0.31068 24.028724,24.028724 0 0 0 0.27591,0.30652 24.028724,24.028724 0 0 0 0.27212,0.2948 24.031127,24.031127 0 0 0 0,0.0113 24.028724,24.028724 0 0 0 0.44145,0.45313 24.028724,24.028724 0 0 0 0.13228,0.13266 l 50.83805,50.8379 a 24.028724,24.028724 0 0 0 33.97833,0 24.028724,24.028724 0 0 0 0,-33.97852 l -9.95678,-9.95702 h 2.33197 a 24.028724,24.028724 0 0 0 0.76157,-0.0151 c 72.83112,0.40725 131.2422,59.05505 131.2422,131.98632 0,73.18605 -58.81776,132.00412 -132.00377,132.00393 -73.18602,-7e-5 -131.99623,-58.81802 -131.99623,-132.00396 A 23.999999,23.999999 0 0 0 100,257.50006 23.999999,23.999999 0 0 0 76.000004,281.4981 c 0,99.12699 80.873196,179.99996 180.000006,180 C 355.12718,461.49836 436,380.62528 436,281.4981 436,182.879 355.95074,102.34048 257.51938,101.51764 a 24.028724,24.028724 0 0 0 -1.51937,-0.0488 h -2.32819 l 9.953,-9.951161 a 24.028724,24.028724 0 0 0 0,-33.9785 24.028724,24.028724 0 0 0 -17.08006,-7.03711 z" /></svg>');
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0.1rem;
-    background-color: var(--element-background);
+.dropdown-with-text.active > .dropdown-with-text-options > .dropdown-with-text-option {
     cursor: pointer;
 }
+
+    .revert-button {
+        padding: 0.5rem;
+        width: 1.0rem;
+        height: 1.0rem;
+        background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8" standalone="no"%3F><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns%23" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns%23" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="1.0rem" height="1.0rem" viewBox="0 0 512 512" version="1.1" id="revert_icon"><path id="background" style="fill:rgb(0, 0, 0);fill-opacity:0.0;stroke-width:12.3214;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" d="M -6e-5,512 H 512.00006 V 5e-6 H -6e-5 Z" /><path id="inner" style="fill:rgb(255, 255, 255);fill-opacity:1.0;fill-rule:nonzero;stroke:none;stroke-width:3.77953;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" d="m 246.56101,50.504159 a 24.028724,24.028724 0 0 0 -0.26456,0.002 24.028724,24.028724 0 0 0 -16.63295,7.03516 l -50.57613,50.578111 a 24.028724,24.028724 0 0 0 -7.43773,17.37891 24.028724,24.028724 0 0 0 5.50413,15.30078 24.028724,24.028724 0 0 0 0.26456,0.31634 24.028724,24.028724 0 0 0 0.26835,0.31068 24.028724,24.028724 0 0 0 0.27591,0.30652 24.028724,24.028724 0 0 0 0.27212,0.2948 24.031127,24.031127 0 0 0 0,0.0113 24.028724,24.028724 0 0 0 0.44145,0.45313 24.028724,24.028724 0 0 0 0.13228,0.13266 l 50.83805,50.8379 a 24.028724,24.028724 0 0 0 33.97833,0 24.028724,24.028724 0 0 0 0,-33.97852 l -9.95678,-9.95702 h 2.33197 a 24.028724,24.028724 0 0 0 0.76157,-0.0151 c 72.83112,0.40725 131.2422,59.05505 131.2422,131.98632 0,73.18605 -58.81776,132.00412 -132.00377,132.00393 -73.18602,-7e-5 -131.99623,-58.81802 -131.99623,-132.00396 A 23.999999,23.999999 0 0 0 100,257.50006 23.999999,23.999999 0 0 0 76.000004,281.4981 c 0,99.12699 80.873196,179.99996 180.000006,180 C 355.12718,461.49836 436,380.62528 436,281.4981 436,182.879 355.95074,102.34048 257.51938,101.51764 a 24.028724,24.028724 0 0 0 -1.51937,-0.0488 h -2.32819 l 9.953,-9.951161 a 24.028724,24.028724 0 0 0 0,-33.9785 24.028724,24.028724 0 0 0 -17.08006,-7.03711 z" /></svg>');
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 0.1rem;
+        background-color: var(--element-background);
+        cursor: pointer;
+    }
 .delete-button {
     padding: 0.5rem;
     width: 1.0rem;
