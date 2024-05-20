@@ -698,6 +698,11 @@ function populateNewCategorySection() {
         }
 
 
+        const newSubcategoryInput = document.getElementById('new-subcategory-input');
+        newSubcategoryInput.value = '';
+        newSubcategoryInput.classList.add('hidden');
+
+
         clearEventListenersById('new-category-subcategory-settings-revert-button');
 
         const newCategorySubcategorySettingsRevertButton = document.getElementById('new-category-subcategory-settings-revert-button');
@@ -762,6 +767,9 @@ function populateNewCategorySection() {
 
                         }
 
+                        newSubcategoryInput.value = '';
+                        newSubcategoryInput.classList.add('hidden');
+
                     } else {
 
                         const existingCategoryId = parseInt(newCategoryDropdownPlaceholder.dataset.id);
@@ -782,6 +790,9 @@ function populateNewCategorySection() {
                             );
 
                         }
+
+                        newSubcategoryInput.value = '';
+                        newSubcategoryInput.classList.add('hidden');
 
                     }
 
